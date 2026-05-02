@@ -1,0 +1,182 @@
+{
+  "project_info": {
+    "project_number": "983780589888",
+    "firebase_url": "https://valueat-app-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "valueat-app",
+    "storage_bucket": "valueat-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:983780589888:android:cf95a3ecedd9e8378dbaa5",
+        "android_client_info": {
+          "package_name": "app.valueat.kapaocafe"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK7kc9xreQLGjEptMHWHcOc32ZUrJq-Zs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:983780589888:android:f223e84c50a1319f8dbaa5",
+        "android_client_info": {
+          "package_name": "app.valueat.kapaocafeweb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK7kc9xreQLGjEptMHWHcOc32ZUrJq-Zs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:983780589888:android:19267161f489ea198dbaa5",
+        "android_client_info": {
+          "package_name": "app.valueat.valueat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK7kc9xreQLGjEptMHWHcOc32ZUrJq-Zs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:983780589888:android:2966b6d16002915e8dbaa5",
+        "android_client_info": {
+          "package_name": "com.ojas.bjlPuchongMesra"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK7kc9xreQLGjEptMHWHcOc32ZUrJq-Zs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:983780589888:android:fa9e5f015d6822b68dbaa5",
+        "android_client_info": {
+          "package_name": "com.ojas.ojassattisorru"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK7kc9xreQLGjEptMHWHcOc32ZUrJq-Zs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:983780589888:android:c5590b9a4db268458dbaa5",
+        "android_client_info": {
+          "package_name": "com.ojas.shakira"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK7kc9xreQLGjEptMHWHcOc32ZUrJq-Zs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:983780589888:android:5574ab6b7329ca758dbaa5",
+        "android_client_info": {
+          "package_name": "com.valueat.burgerjilegend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK7kc9xreQLGjEptMHWHcOc32ZUrJq-Zs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:983780589888:android:be89d40ff81acdf28dbaa5",
+        "android_client_info": {
+          "package_name": "com.valueat.ojas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK7kc9xreQLGjEptMHWHcOc32ZUrJq-Zs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:983780589888:android:d27b39fd3e3f8b118dbaa5",
+        "android_client_info": {
+          "package_name": "com.valueat.valueatmini"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK7kc9xreQLGjEptMHWHcOc32ZUrJq-Zs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
