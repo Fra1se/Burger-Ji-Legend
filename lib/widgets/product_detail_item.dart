@@ -184,7 +184,9 @@ class ProductDetailItemState extends State<ProductDetailItem> {
                     ),
                     const Divider(),
                     textBuilder(
-                      productById.productOrderHours != null ? 'Order in Advance ${productById.productOrderHours} Hour(s)' : 'Order in Advance ${productById.productOrderMins} Minutes',
+                      productById.productOrderHours != null
+                          ? 'Order in Advance ${productById.productOrderHours} Hour(s)'
+                          : 'Order in Advance ${productById.productOrderMins} Minutes',
                       15,
                     ),
                   ],
@@ -205,14 +207,16 @@ class ProductDetailItemState extends State<ProductDetailItem> {
                         restaurantById.openTime,
                         13,
                       ),
-                    if (restaurantById.openTime != '' && (restaurantById.address['addressLine'] != '' && restaurantById.address['addressLine'] != null)) const Divider(),
+                    if (restaurantById.openTime != '' &&
+                        (restaurantById.address['addressLine'] != '' && restaurantById.address['addressLine'] != null))
+                      const Divider(),
                     if (restaurantById.address['addressLine'] != '' && restaurantById.address['addressLine'] != null)
                       textBuilder(
                         restaurantById.address['addressLine']!,
                         13,
                       ),
-                    //...
 
+                    //...
                     if (restaurantById.googleMapLink != '') const Divider(),
                     if (restaurantById.googleMapLink != '')
                       contactInfoBuilder(
@@ -508,7 +512,9 @@ class ProductDetailItemState extends State<ProductDetailItem> {
                                                         return RadioListTile<ProductVariations>(
                                                           toggleable: true,
                                                           title: Text(item.title),
-                                                          subtitle: Text('MYR  ${(item.price as double).toStringAsFixed(2)}'),
+                                                          subtitle: Text(
+                                                            'MYR  ${(item.price as double).toStringAsFixed(2)}',
+                                                          ),
                                                           value: item,
                                                           groupValue: baseValue,
                                                           onChanged: item.isOut
@@ -564,11 +570,15 @@ class ProductDetailItemState extends State<ProductDetailItem> {
                                                                     shrinkWrap: true,
                                                                     itemCount: map['extra'][index]['list'].length,
                                                                     itemBuilder: (context, i) {
-                                                                      final item = map['extra'][index]['list'][i] as ProductVariations;
+                                                                      final item =
+                                                                          map['extra'][index]['list'][i]
+                                                                              as ProductVariations;
                                                                       return RadioListTile<ProductVariations>(
                                                                         toggleable: true,
                                                                         title: Text(item.title),
-                                                                        subtitle: Text('MYR  ${(item.price).toStringAsFixed(2)}'),
+                                                                        subtitle: Text(
+                                                                          'MYR  ${(item.price).toStringAsFixed(2)}',
+                                                                        ),
                                                                         value: item,
                                                                         groupValue: extraValue,
                                                                         onChanged: item.isOut == true
@@ -576,12 +586,17 @@ class ProductDetailItemState extends State<ProductDetailItem> {
                                                                             : (value) {
                                                                                 setExtraState(() {
                                                                                   extraValue = value;
-                                                                                  if (map['extra'][index]['isRequired'] == true) {
-                                                                                    extraIsValid[index] = value == null ? false : true;
+                                                                                  if (map['extra'][index]['isRequired'] ==
+                                                                                      true) {
+                                                                                    extraIsValid[index] = value == null
+                                                                                        ? false
+                                                                                        : true;
                                                                                   }
                                                                                 });
 
-                                                                                vari.setExtraValue = value == null ? {'$index': null} : {'$index': value};
+                                                                                vari.setExtraValue = value == null
+                                                                                    ? {'$index': null}
+                                                                                    : {'$index': value};
                                                                                 vari.notify();
                                                                               },
                                                                       );
@@ -595,14 +610,17 @@ class ProductDetailItemState extends State<ProductDetailItem> {
                                                                 shrinkWrap: true,
                                                                 itemCount: map['extra'][index]['list'].length,
                                                                 itemBuilder: (context, i) {
-                                                                  final item = map['extra'][index]['list'][i] as ProductVariations;
+                                                                  final item =
+                                                                      map['extra'][index]['list'][i] as ProductVariations;
                                                                   bool? select = false;
 
                                                                   return StatefulBuilder(
                                                                     builder: (_, setExtraState) {
                                                                       return CheckboxListTile(
                                                                         title: Text(item.title),
-                                                                        subtitle: Text('MYR ${(item.price).toStringAsFixed(2)}'),
+                                                                        subtitle: Text(
+                                                                          'MYR ${(item.price).toStringAsFixed(2)}',
+                                                                        ),
                                                                         controlAffinity: ListTileControlAffinity.leading,
                                                                         value: select,
                                                                         onChanged: item.isOut == true
@@ -610,12 +628,18 @@ class ProductDetailItemState extends State<ProductDetailItem> {
                                                                             : (value) {
                                                                                 setExtraState(() {
                                                                                   select = value;
-                                                                                  if (map['extra'][index]['isRequired'] == true) {
-                                                                                    extraIsValid[index] = (value == false || value == null) ? false : true;
+                                                                                  if (map['extra'][index]['isRequired'] ==
+                                                                                      true) {
+                                                                                    extraIsValid[index] =
+                                                                                        (value == false || value == null)
+                                                                                        ? false
+                                                                                        : true;
                                                                                   }
                                                                                 });
 
-                                                                                vari.setExtraValue = select == false ? {'$index$i': null} : {'$index$i': item};
+                                                                                vari.setExtraValue = select == false
+                                                                                    ? {'$index$i': null}
+                                                                                    : {'$index$i': item};
                                                                                 vari.notify();
                                                                               },
                                                                       );
@@ -682,7 +706,9 @@ class ProductDetailItemState extends State<ProductDetailItem> {
                                                     const SizedBox(width: 15),
                                                     TextButton(
                                                       style: ButtonStyle(
-                                                        backgroundColor: WidgetStateProperty.all(Theme.of(context).colorScheme.primary),
+                                                        backgroundColor: WidgetStateProperty.all(
+                                                          Theme.of(context).colorScheme.primary,
+                                                        ),
                                                       ),
                                                       child: Text(
                                                         'Confirm',
@@ -734,6 +760,10 @@ class ProductDetailItemState extends State<ProductDetailItem> {
                               );
                             } catch (error) {
                               return showAlert('Error', 'Sorry there was an error');
+                            }
+
+                            if (context.mounted) {
+                              Provider.of<Restaurants>(context, listen: false).setResId = restaurantId;
                             }
 
                             nav.pop();

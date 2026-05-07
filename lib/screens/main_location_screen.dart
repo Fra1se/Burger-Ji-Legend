@@ -93,7 +93,7 @@ class _MainLocationScreenState extends State<MainLocationScreen> {
               SizedBox(
                 width: double.infinity,
                 child: Image.network(
-                  resItems.restaurantMapImg,
+                  'resItems.restaurantMapImg',
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
@@ -111,20 +111,20 @@ class _MainLocationScreenState extends State<MainLocationScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        resItems.restaurantTitle,
+                        'resItems.restaurantTitle',
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(height: 20),
-                      Text(resItems.address['addressLine']),
+                      //Text(resItems.address['addressLine']),
                       const SizedBox(height: 20),
                       const Text('Map'),
                       GestureDetector(
-                        onTap: () => launchURL(resItems.googleMapLink),
+                        onTap: () => launchURL('resItems.googleMapLink'),
                         child: Text(
-                          resItems.googleMapLink,
+                          'resItems.googleMapLink',
                           style: const TextStyle(
                             color: Colors.blue,
                           ),
@@ -138,17 +138,17 @@ class _MainLocationScreenState extends State<MainLocationScreen> {
               buttonBuilder(
                 Icons.phone,
                 'Call Us',
-                'tel:${resItems.rawNumber}',
+                'tel:${'resItems.rawNumber'}',
               ),
               buttonBuilder(
                 Icons.email,
                 'Email Us',
-                'mailto:${resItems.email}',
+                'mailto:${'resItems.email'}',
               ),
               buttonBuilder(
                 FontAwesomeIcons.whatsapp,
                 'WhatsApp',
-                'whatsapp://send?&phone=${resItems.whatsApp}',
+                'whatsapp://send?&phone=${'resItems.whatsApp'}',
               ),
               // buttonBuilder(
               //   FontAwesomeIcons.facebook,

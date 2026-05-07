@@ -32,9 +32,8 @@ class Restaurant with ChangeNotifier {
 
   ReceiveExceptions? receiveExceptions;
 
-  String fusion;
   String googleMapLink;
-  String restaurantMapImg;
+  //String restaurantMapImg;
   String email;
   String number;
   String rawNumber;
@@ -56,9 +55,8 @@ class Restaurant with ChangeNotifier {
     required this.paymentDetails,
     required this.lalamove,
     required this.receiveExceptions,
-    required this.fusion,
     required this.googleMapLink,
-    required this.restaurantMapImg,
+    //required this.restaurantMapImg,
     required this.email,
     required this.number,
     required this.rawNumber,

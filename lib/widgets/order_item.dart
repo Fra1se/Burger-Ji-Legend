@@ -98,18 +98,14 @@ class OrderItemState extends State<OrderItem> {
     final restaurants = Provider.of<Restaurants>(context, listen: false);
     final cart = Provider.of<Carts>(context, listen: false);
 
-    final restaurant = restaurants.items;
+    final restaurant = restaurants.selectedRestaurant;
     //...
 
     final scrollBarController = ScrollController();
     //...
 
     Widget dividerBuilder() {
-      return Divider(
-        color: Theme.of(context).colorScheme.shadow,
-        height: 0,
-        thickness: 1,
-      );
+      return Divider(color: Theme.of(context).colorScheme.shadow, height: 0, thickness: 1);
     }
 
     Widget textFormFieldBuilder({
@@ -139,15 +135,9 @@ class OrderItemState extends State<OrderItem> {
           errorBorder: InputBorder.none,
           disabledBorder: InputBorder.none,
           hintText: hintText,
-          hintStyle: const TextStyle(
-            color: Colors.grey,
-            fontSize: 15,
-          ),
+          hintStyle: const TextStyle(color: Colors.grey, fontSize: 15),
         ),
-        style: const TextStyle(
-          color: Colors.black,
-          fontSize: 15,
-        ),
+        style: const TextStyle(color: Colors.black, fontSize: 15),
         cursorColor: Colors.black,
         onEditingComplete: () {
           focusNode!.unfocus();
@@ -159,26 +149,12 @@ class OrderItemState extends State<OrderItem> {
 
     Widget headerBuilder(String text) {
       return Padding(
-        padding: const EdgeInsets.only(
-          top: 5,
-          left: 8.0,
-          bottom: 5,
-        ),
-        child: Text(
-          text,
-          style: const TextStyle(
-            fontSize: 14,
-            color: Colors.black,
-          ),
-        ),
+        padding: const EdgeInsets.only(top: 5, left: 8.0, bottom: 5),
+        child: Text(text, style: const TextStyle(fontSize: 14, color: Colors.black)),
       );
     }
 
-    void alertDialog({
-      String title = '',
-      String content = '',
-      String chContent = '',
-    }) {
+    void alertDialog({String title = '', String content = '', String chContent = ''}) {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -186,17 +162,15 @@ class OrderItemState extends State<OrderItem> {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (content != '') Text(content),
-              if (chContent != '') Text(chContent),
-            ],
+            children: [if (content != '') Text(content), if (chContent != '') Text(chContent)],
           ),
           actions: [
             TextButton(
-                onPressed: (() {
-                  Navigator.of(context).pop();
-                }),
-                child: const Text('OK'))
+              onPressed: (() {
+                Navigator.of(context).pop();
+              }),
+              child: const Text('OK'),
+            ),
           ],
         ),
       );
@@ -217,10 +191,7 @@ class OrderItemState extends State<OrderItem> {
           child: Form(
             key: _form,
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 15,
-                vertical: 15,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               child: Column(
                 children: [
                   Column(
@@ -250,10 +221,7 @@ class OrderItemState extends State<OrderItem> {
                         focusNode: _numberOfPplFocusNode,
                         initialValue: _initialNumberOfPpl,
                         textInputAction: TextInputAction.done,
-                        keyboardType: const TextInputType.numberWithOptions(
-                          decimal: false,
-                          signed: false,
-                        ),
+                        keyboardType: const TextInputType.numberWithOptions(decimal: false, signed: false),
                         maxLines: 1,
                         hintText: 'No. of Person',
                         validator: (value) {
@@ -284,17 +252,8 @@ class OrderItemState extends State<OrderItem> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             const Padding(
-                              padding: EdgeInsets.only(
-                                left: 5,
-                                top: 2,
-                              ),
-                              child: Text(
-                                '+60',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                ),
-                              ),
+                              padding: EdgeInsets.only(left: 5, top: 2),
+                              child: Text('+60', style: TextStyle(color: Colors.black, fontSize: 15)),
                             ),
                             Expanded(
                               child: textFormFieldBuilder(
@@ -305,9 +264,7 @@ class OrderItemState extends State<OrderItem> {
                                 hintText: 'Your Mobile No.',
                                 maxLines: 1,
                                 validator: (value) {
-                                  RegExp regExp = RegExp(
-                                    r'(^(\+?6?01)[02-46-9]-*[0-9]{7}$|^(\+?6?01)[1]-*[0-9]{8}$)',
-                                  );
+                                  RegExp regExp = RegExp(r'(^(\+?6?01)[02-46-9]-*[0-9]{7}$|^(\+?6?01)[1]-*[0-9]{8}$)');
 
                                   if (value == null) {
                                     return 'Please enter Mobile No.';
@@ -336,41 +293,31 @@ class OrderItemState extends State<OrderItem> {
                       setState(() {
                         isAsap = false;
                       });
-                      DatePicker.showDatePicker(context,
-                          maxTime: DateTime(
-                            DateTime.now().year + 5,
-                          ),
-                          minTime: DateTime.now(), onConfirm: (confirmedDate) {
-                        setState(() {
-                          orderDateTime = confirmedDate;
-                          date = confirmedDate;
-                          dateValidator = true;
-                        });
-                      });
+                      DatePicker.showDatePicker(
+                        context,
+                        maxTime: DateTime(DateTime.now().year + 5),
+                        minTime: DateTime.now(),
+                        onConfirm: (confirmedDate) {
+                          setState(() {
+                            orderDateTime = confirmedDate;
+                            date = confirmedDate;
+                            dateValidator = true;
+                          });
+                        },
+                      );
                     },
                     child: Container(
-                      color: isAsap == false
-                          ? const Color.fromARGB(255, 224, 224, 224)
-                          : Colors.white,
+                      color: isAsap == false ? const Color.fromARGB(255, 224, 224, 224) : Colors.white,
                       width: double.infinity,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 7,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
                       margin: const EdgeInsets.only(top: 5),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            'Date:',
-                            style: TextStyle(fontSize: 14),
-                          ),
+                          const Text('Date:', style: TextStyle(fontSize: 14)),
                           Text(
                             DateFormat('EEE, dd/MM/yyyy').format(date),
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.black,
-                            ),
+                            style: const TextStyle(fontSize: 14, color: Colors.black),
                           ),
                         ],
                       ),
@@ -394,28 +341,17 @@ class OrderItemState extends State<OrderItem> {
                       );
                     },
                     child: Container(
-                      color: isAsap == false
-                          ? const Color.fromARGB(255, 224, 224, 224)
-                          : Colors.white,
+                      color: isAsap == false ? const Color.fromARGB(255, 224, 224, 224) : Colors.white,
                       width: double.infinity,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 7,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
                       margin: const EdgeInsets.only(top: 5),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            'Time:',
-                            style: TextStyle(fontSize: 14),
-                          ),
+                          const Text('Time:', style: TextStyle(fontSize: 14)),
                           Text(
                             DateFormat('hh : mm aa').format(time),
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.black,
-                            ),
+                            style: const TextStyle(fontSize: 14, color: Colors.black),
                           ),
                         ],
                       ),
@@ -429,14 +365,9 @@ class OrderItemState extends State<OrderItem> {
                       });
                     },
                     child: Container(
-                      color: isAsap == true
-                          ? const Color.fromARGB(255, 179, 179, 179)
-                          : Colors.white,
+                      color: isAsap == true ? const Color.fromARGB(255, 179, 179, 179) : Colors.white,
                       width: double.infinity,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 7,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
                       margin: const EdgeInsets.only(top: 5),
                       child: const Text('Press Here for ASAP Delivery'),
                     ),
@@ -445,12 +376,7 @@ class OrderItemState extends State<OrderItem> {
                   RadioListTile<ReceiveOptions>(
                     toggleable: true,
                     contentPadding: const EdgeInsets.all(0),
-                    title: const Text(
-                      'Dine-In',
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
+                    title: const Text('Dine-In', style: TextStyle(fontSize: 14)),
                     tileColor: Theme.of(context).colorScheme.surface,
                     value: ReceiveOptions.dineIn,
                     groupValue: _receive,
@@ -458,8 +384,7 @@ class OrderItemState extends State<OrderItem> {
                         ? null
                         : (value) {
                             setState(() {
-                              Provider.of<Carts>(context, listen: false)
-                                  .clearQuotations();
+                              Provider.of<Carts>(context, listen: false).clearQuotations();
                               _receive = value;
                             });
                           },
@@ -468,12 +393,7 @@ class OrderItemState extends State<OrderItem> {
                   RadioListTile<ReceiveOptions>(
                     toggleable: true,
                     contentPadding: const EdgeInsets.all(0),
-                    title: const Text(
-                      'Take-Away',
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
+                    title: const Text('Take-Away', style: TextStyle(fontSize: 14)),
                     tileColor: Theme.of(context).colorScheme.surface,
                     value: ReceiveOptions.takeAway,
                     groupValue: _receive,
@@ -481,8 +401,7 @@ class OrderItemState extends State<OrderItem> {
                         ? null
                         : (value) {
                             setState(() {
-                              Provider.of<Carts>(context, listen: false)
-                                  .clearQuotations();
+                              Provider.of<Carts>(context, listen: false).clearQuotations();
                               _receive = value;
                             });
                           },
@@ -491,18 +410,11 @@ class OrderItemState extends State<OrderItem> {
                   RadioListTile<ReceiveOptions>(
                     toggleable: true,
                     contentPadding: const EdgeInsets.all(0),
-                    title: const Text(
-                      'Delivery',
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
+                    title: const Text('Delivery', style: TextStyle(fontSize: 14)),
                     tileColor: Theme.of(context).colorScheme.surface,
                     value: ReceiveOptions.delivery,
                     groupValue: _receive,
-                    onChanged: restaurant.receiveExceptions?.delivery ==
-                                false ||
-                            restaurant.lalamove == null
+                    onChanged: restaurant.receiveExceptions?.delivery == false || restaurant.lalamove == null
                         ? null
                         : (value) async {
                             if (value == null) {
@@ -515,23 +427,18 @@ class OrderItemState extends State<OrderItem> {
                               context: context,
                               barrierDismissible: false,
                               builder: (ctx) => PopScope(
-                                onPopInvokedWithResult: (_, __) =>
-                                    Future.value(false),
-                                child: const Center(
-                                  child: CircularProgressIndicator(),
-                                ),
+                                onPopInvokedWithResult: (_, __) => Future.value(false),
+                                child: const Center(child: CircularProgressIndicator()),
                               ),
                             );
 
                             final nav = Navigator.of(context);
 
-                            await Provider.of<Orders>(context, listen: false)
-                                .receiveAddres();
+                            await Provider.of<Orders>(context, listen: false).receiveAddres();
 
                             nav.pop();
 
-                            final response = await nav
-                                .pushNamed(AddressFormScreen.routeName);
+                            final response = await nav.pushNamed(AddressFormScreen.routeName);
 
                             setState(() {
                               if (response == false || response == null) {
@@ -559,25 +466,14 @@ class OrderItemState extends State<OrderItem> {
                     child: TextButton.icon(
                       style: ButtonStyle(
                         shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
+                          RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                         ),
-                        backgroundColor: WidgetStateProperty.all<Color>(
-                          Theme.of(context).colorScheme.primary,
-                        ),
+                        backgroundColor: WidgetStateProperty.all<Color>(Theme.of(context).colorScheme.primary),
                       ),
-                      icon: Icon(
-                        Icons.alarm,
-                        color: Theme.of(context).colorScheme.onPrimary,
-                        size: 18,
-                      ),
+                      icon: Icon(Icons.alarm, color: Theme.of(context).colorScheme.onPrimary, size: 18),
                       label: Text(
                         'Order Now',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                          fontSize: 13,
-                        ),
+                        style: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontSize: 13),
                       ),
                       onPressed: () async {
                         FocusScope.of(context).unfocus();
@@ -587,50 +483,32 @@ class OrderItemState extends State<OrderItem> {
                         final nav = Navigator.of(context);
                         final dateTimeNow = DateTime.now();
 
-                        Future showAlert(
-                            Widget Function(BuildContext) builder) {
-                          return showDialog(
-                            context: context,
-                            builder: builder,
-                          );
+                        Future showAlert(Widget Function(BuildContext) builder) {
+                          return showDialog(context: context, builder: builder);
                         }
 
-                        await orders.saveDetails(
-                          customerName,
-                          numberOfPeople.toString(),
-                          inputNum!,
-                        );
+                        await orders.saveDetails(customerName, numberOfPeople.toString(), inputNum!);
 
                         if (!isValid) {
-                          alertDialog(
-                              title: 'Alert',
-                              content: 'Please Fill In All Information');
+                          alertDialog(title: 'Alert', content: 'Please Fill In All Information');
                           return;
                         }
                         if (isAsap == null) {
-                          alertDialog(
-                              title: 'Alert', content: 'Please Choose Time');
+                          alertDialog(title: 'Alert', content: 'Please Choose Time');
                           return;
                         }
-                        if (isAsap == false &&
-                            orderDateTime.isBefore(dateTimeNow)) {
-                          alertDialog(
-                              title: 'Alert',
-                              content: 'Please Choose Time Again');
+                        if (isAsap == false && orderDateTime.isBefore(dateTimeNow)) {
+                          alertDialog(title: 'Alert', content: 'Please Choose Time Again');
                           return;
                         }
                         if (_receive == null) {
-                          alertDialog(
-                              title: 'Alert',
-                              content: 'Please Choose A Pick Up Option');
+                          alertDialog(title: 'Alert', content: 'Please Choose A Pick Up Option');
                           return;
                         }
                         if (_receive == ReceiveOptions.delivery &&
                             (orders.orderAddress?.addressValidate == false ||
                                 orders.orderAddress?.addressValidate == null)) {
-                          alertDialog(
-                              title: 'Alert',
-                              content: 'Please Fill In Delivery Address Again');
+                          alertDialog(title: 'Alert', content: 'Please Fill In Delivery Address Again');
                           return;
                         }
 
@@ -666,33 +544,26 @@ class OrderItemState extends State<OrderItem> {
                             context: context,
                             barrierDismissible: false,
                             builder: (ctx) => PopScope(
-                              onPopInvokedWithResult: (_, __) =>
-                                  Future.value(false),
-                              child: const Center(
-                                child: CircularProgressIndicator(),
-                              ),
+                              onPopInvokedWithResult: (_, __) => Future.value(false),
+                              child: const Center(child: CircularProgressIndicator()),
                             ),
                           );
                         }
 
-                        if (_receive == ReceiveOptions.delivery &&
-                            context.mounted) {
+                        if (_receive == ReceiveOptions.delivery && context.mounted) {
                           quote = await orders.getQuotations(
                             apiKey: restaurant.lalamove!['apiKey'],
                             apiSecret: restaurant.lalamove!['apiSecret'],
                             context: context,
                             time: dateTimeNow.millisecondsSinceEpoch.toString(),
-                            scheduledAt: isAsap == true
-                                ? null
-                                : orderDateTime.toUtc().toIso8601String(),
+                            scheduledAt: isAsap == true ? null : orderDateTime.toUtc().toIso8601String(),
                             //...
                             restaurantName: restaurant.restaurantTitle,
                             restaurantRawNumber: restaurant.rawNumber,
                             customerName: customerName,
                             customerNumber: phoneNumber,
                             //...
-                            restaurantAddress:
-                                restaurant.address['addressLine'],
+                            restaurantAddress: restaurant.address['addressLine'],
                             restaurantLat: restaurant.address['lat'],
                             restaurantLng: restaurant.address['lng'],
                             //...
@@ -706,13 +577,11 @@ class OrderItemState extends State<OrderItem> {
                           Navigator.of(context).pop();
                         }
 
-                        if (_receive == ReceiveOptions.delivery &&
-                            quote?['quotationId'] == null) {
+                        if (_receive == ReceiveOptions.delivery && quote?['quotationId'] == null) {
                           showAlert(
                             (ctx) => AlertDialog(
                               title: const Text('ERROR'),
-                              content: const Text(
-                                  "There was an error with getting a delivery price"),
+                              content: const Text("There was an error with getting a delivery price"),
                               actions: [
                                 TextButton(
                                   onPressed: () {
@@ -734,30 +603,21 @@ class OrderItemState extends State<OrderItem> {
                                   ? null
                                   : LalamoveDeliveryInfo(
                                       quotationId: quote!['quotationId'],
-                                      restaurantStopId:
-                                          quote['restaurantStopId'],
+                                      restaurantStopId: quote['restaurantStopId'],
                                       customerStopId: quote['customerStopId'],
-                                      restaurantAddress:
-                                          restaurant.address['addressLine'],
+                                      restaurantAddress: restaurant.address['addressLine'],
                                       restaurantLat: restaurant.address['lat'],
                                       restaurantLng: restaurant.address['lng'],
-                                      customerAddress:
-                                          orders.orderAddress!.address,
-                                      customerLat:
-                                          orders.orderAddress!.latitude,
-                                      customerLng:
-                                          orders.orderAddress!.longitude,
+                                      customerAddress: orders.orderAddress!.address,
+                                      customerLat: orders.orderAddress!.latitude,
+                                      customerLng: orders.orderAddress!.longitude,
                                       customerState: orders.orderAddress!.state,
-                                      customerDistrict:
-                                          orders.orderAddress!.district,
-                                      customerSubDistrict:
-                                          orders.orderAddress!.subDistrict,
-                                      customerPostalCode:
-                                          orders.orderAddress!.postalCode,
+                                      customerDistrict: orders.orderAddress!.district,
+                                      customerSubDistrict: orders.orderAddress!.subDistrict,
+                                      customerPostalCode: orders.orderAddress!.postalCode,
                                     ),
                               resUserId: restaurant.restaurantUserId,
-                              scheduledAt:
-                                  isAsap == true ? null : orderDateTime,
+                              scheduledAt: isAsap == true ? null : orderDateTime,
                               numPax: numberOfPeople,
                               receive: _receive!,
                               specialRequests: specialRequests,
@@ -767,8 +627,7 @@ class OrderItemState extends State<OrderItem> {
                               cusNumber: phoneNumber,
                               products: [...cart.items],
                             ),
-                            'restaurantPaymentDetails':
-                                restaurant.paymentDetails,
+                            'restaurantPaymentDetails': restaurant.paymentDetails,
                             'restaurantLalamove': restaurant.lalamove,
                           },
                         );

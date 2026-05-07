@@ -18,11 +18,11 @@ class ProductCategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productCategory = Provider.of<ProductCategory>(context, listen: false);
-
     Provider.of<ProductCategories>(context);
     //...Providers
 
-    const restaurantId = 'ojas-satti-sorru';
+    final routeArgs = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final restaurantId = routeArgs['restaurantId'];
     //...RouteArgs
 
     return Material(

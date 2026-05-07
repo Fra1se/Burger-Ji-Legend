@@ -21,7 +21,6 @@ class ProductScreen extends StatefulWidget {
 
 class _ProductScreenState extends State<ProductScreen> {
   bool isSearching = false;
-
   final TextEditingController _searchTextController = TextEditingController();
 
   //...

@@ -89,11 +89,11 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.valueat.burgerjillegend" "\0"
+            VALUE "CompanyName", "com.valueat.burgerjilegend" "\0"
             VALUE "FileDescription", "burger_ji_legend" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "burger_ji_legend" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2026 com.valueat.burgerjillegend. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2026 com.valueat.burgerjilegend. All rights reserved." "\0"
             VALUE "OriginalFilename", "burger_ji_legend.exe" "\0"
             VALUE "ProductName", "burger_ji_legend" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"

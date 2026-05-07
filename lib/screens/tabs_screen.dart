@@ -1,3 +1,4 @@
+import 'package:burger_ji_legend/screens/restaurant_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +43,7 @@ class TabsScreenState extends State<TabsScreen> {
   void initState() {
     _screens = [
       {
-        'screen': const ProductCategoryScreen(),
+        'screen': const RestaurantScreen(),
         'title': 'Burger Ji Legend',
       },
       {

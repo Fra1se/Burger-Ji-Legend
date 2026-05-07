@@ -18,7 +18,8 @@ class ProductCategoryListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const restaurantId = 'ojas-satti-sorru';
+    final routeArgs = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final restaurantId = routeArgs['restaurantId'];
     //...RouteArgs
 
     final productCatDisplayedItems = Provider.of<ProductCategories>(context).displayedItems(

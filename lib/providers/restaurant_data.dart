@@ -7,68 +7,82 @@ import '../models/restaurant.dart';
 //...models
 
 class Restaurants with ChangeNotifier {
-  Restaurant? _items;
+  final List<Restaurant> _items = [];
 
-  Restaurant get items {
-    return _items!;
+  List<Restaurant> get items {
+    return [..._items];
   }
 
-  String? selectedRestaurantId = 'ojas-satti-sorru';
+  String? selectedResId;
+
+  set setResId(String? id) {
+    selectedResId = id;
+    notifyListeners();
+  }
+
+  String? chainId = 'burger_ji_legend';
 
   Future<void> receiveItems() async {
-    Uri url = Uri.parse(
-      'https://valueat-app-default-rtdb.asia-southeast1.firebasedatabase.app/restaurants/$selectedRestaurantId.json',
-    );
+    Uri url = Uri.parse('https://valueat-app-default-rtdb.asia-southeast1.firebasedatabase.app/restaurants.json');
+    _items.clear();
 
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
-      Restaurant? loadedItems;
 
-      ReceiveExceptions? rcvEx;
-      dynamic rcvExItems = extractedData['receiveExceptions'];
+      extractedData.forEach((key, value) {
+        ReceiveExceptions? rcvEx;
+        dynamic rcvExItems = extractedData['receiveExceptions'];
 
-      if (rcvExItems != null) {
-        rcvEx = ReceiveExceptions(
-          delivery: rcvExItems['delivery'],
-          dineIn: rcvExItems['dineIn'],
-          takeAway: rcvExItems['takeAway'],
-        );
-      }
+        if (rcvExItems != null) {
+          rcvEx = ReceiveExceptions(
+            delivery: rcvExItems['delivery'],
+            dineIn: rcvExItems['dineIn'],
+            takeAway: rcvExItems['takeAway'],
+          );
+        }
 
-      loadedItems = Restaurant(
-        isClosed: extractedData['isClosed'],
-        restaurantTitle: extractedData['title'],
-        restaurantChTitle: extractedData['chTitle'],
-        restaurantId: selectedRestaurantId!,
-        restaurantUserId: extractedData['userId'],
-        restaurantCatId: List.from((extractedData['catId'] as Map).values),
-        restaurantImageUrl: extractedData['imageUrl'],
-        openTime: extractedData['openTime'],
-        address: extractedData['address'],
-        paymentDetails: extractedData['paymentDetails'],
-        lalamove: extractedData['lalamove'],
-        receiveExceptions: rcvEx,
-        fusion: extractedData['fusion'],
-        googleMapLink: extractedData['googleMapLink'],
-        restaurantMapImg: extractedData['resMapImg'],
-        email: extractedData['email'],
-        number: extractedData['number'],
-        rawNumber: extractedData['rawNumber'],
-        facebook: extractedData['facebook'],
-        whatsApp: extractedData['whatsApp'],
-        line: extractedData['line'],
-        instagram: extractedData['instagram'],
-      );
+        if (value['chainId'] == chainId) {
+          _items.add(
+            Restaurant(
+              isClosed: value['isClosed'],
+              restaurantTitle: value['title'],
+              restaurantChTitle: value['chTitle'],
+              restaurantId: key,
+              restaurantUserId: value['userId'],
+              restaurantCatId: List.from((value['catId'] as Map).values),
+              restaurantImageUrl: value['imageUrl'],
+              openTime: value['openTime'],
+              address: value['address'],
+              paymentDetails: value['paymentDetails'],
+              lalamove: value['lalamove'],
+              googleMapLink: value['googleMapLink'],
+              //restaurantMapImg: value['resMapImg'],
+              email: value['email'],
+              number: value['number'],
+              rawNumber: value['rawNumber'],
+              facebook: value['facebook'],
+              whatsApp: value['whatsApp'],
+              line: value['line'],
+              instagram: value['instagram'],
 
-      _items = loadedItems;
-      notifyListeners();
+              receiveExceptions: rcvEx,
+            ),
+          );
+        }
+      });
     } catch (error) {
       rethrow;
     }
+
+    notifyListeners();
   }
 
   Restaurant findById(String id) {
-    return items;
+    return _items.firstWhere((item) => item.restaurantId == id);
+  }
+
+  Restaurant get selectedRestaurant {
+    return _items.firstWhere((item) => item.restaurantId == selectedResId);
   }
 }
