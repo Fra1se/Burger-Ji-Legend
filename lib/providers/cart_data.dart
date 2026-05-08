@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:burger_ji_legend/providers/restaurant_data.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 import 'dart:io';
 //...packages
 
@@ -78,11 +80,13 @@ class Carts with ChangeNotifier {
 
     if (data != null) {
       final extractedData = json.decode(data) as List<dynamic>?;
+      var resId;
 
       if (extractedData != null) {
         _items.addAll(
-          extractedData.map(
-            (value) => Cart(
+          extractedData.map((value) {
+            resId = value['restaurantId'];
+            return Cart(
               restaurantId: value['restaurantId'],
               productId: value['productId'],
               cartId: value['cartId'],
@@ -91,8 +95,8 @@ class Carts with ChangeNotifier {
               cartQuantity: value['cartQuantity'],
               cartPrice: value['cartPrice'],
               cartSpecialRequests: value['cartSpecialRequests'],
-            ),
-          ),
+            );
+          }),
         );
       }
 
@@ -108,6 +112,7 @@ class Carts with ChangeNotifier {
               TextButton(
                 child: const Text('YES'),
                 onPressed: () async {
+                  Provider.of<Restaurants>(context, listen: false).setResId = resId;
                   final nav = Navigator.of(context);
                   await clearAllItems(context);
                   nav.pop();
@@ -116,6 +121,7 @@ class Carts with ChangeNotifier {
               TextButton(
                 child: const Text('NO'),
                 onPressed: () async {
+                  Provider.of<Restaurants>(context, listen: false).setResId = resId;
                   Navigator.pop(context);
                 },
               ),

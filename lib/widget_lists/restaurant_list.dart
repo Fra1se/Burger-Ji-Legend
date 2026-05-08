@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/retry.dart';
 import 'package:provider/provider.dart';
 //...packages
 
@@ -34,6 +35,8 @@ class _RestaurantListViewState extends State<RestaurantListView> {
       }
     }
 
+    print(resStates);
+
     return resList.isEmpty
         ? const Center(child: Text('Work In Progress'))
         : RawScrollbar(
@@ -50,31 +53,48 @@ class _RestaurantListViewState extends State<RestaurantListView> {
                 height: 1,
                 thickness: 1,
                 endIndent: 15,
-                indent: 5,
+                indent: 15,
               ),
               itemCount: resList.length,
               itemBuilder: (ctx, i) {
-                if (resList[i].address['state'] != resStates[resStateCount]) {
-                  resStateCount++;
-                }
+                if (resStates.length != resStateCount) {
+                  if (resList[i].address['state'] == resStates[resStateCount]) {
+                    resStateCount++;
+                  }
 
-                return ChangeNotifierProvider.value(
-                  value: resList[i],
-                  child: Column(
-                    children: [
-                      if (resList[i].address['state'] == resStates[resStateCount])
-                        Container(
-                          width: double.infinity,
-                          color: Theme.of(context).colorScheme.secondaryContainer,
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                          child: Text(
-                            resList[i].address['state'],
+                  return ChangeNotifierProvider.value(
+                    value: resList[i],
+                    child: Column(
+                      children: [
+                        if (resList[i].address['state'] == resStates[resStateCount - 1])
+                          Container(
+                            width: double.infinity,
+                            //color: Theme.of(context).colorScheme.secondaryContainer,
+                            padding: const EdgeInsets.only(
+                              left: 15,
+                              right: 15,
+                              top: 15,
+                              bottom: 5,
+                            ),
+                            child: Text(
+                              resList[i].address['state'],
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.onPrimary,
+                              ),
+                            ),
                           ),
-                        ),
-                      RestaurantItem(),
-                    ],
-                  ),
-                );
+                        RestaurantItem(),
+                      ],
+                    ),
+                  );
+                } else {
+                  return ChangeNotifierProvider.value(
+                    value: resList[i],
+                    child: RestaurantItem(),
+                  );
+                }
               },
             ),
           );

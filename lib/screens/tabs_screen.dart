@@ -8,7 +8,6 @@ import '../providers/my_orders_data.dart';
 import '../providers/cart_data.dart';
 //...providers
 
-import 'product_category_screen.dart';
 import 'my_orders_screen.dart';
 import 'main_location_screen.dart';
 import 'vouchers_screen.dart';
