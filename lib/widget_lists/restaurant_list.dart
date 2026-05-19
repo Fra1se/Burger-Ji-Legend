@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/retry.dart';
 import 'package:provider/provider.dart';
 //...packages
 
