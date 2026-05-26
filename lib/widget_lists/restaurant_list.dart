@@ -34,8 +34,6 @@ class _RestaurantListViewState extends State<RestaurantListView> {
       }
     }
 
-    print(resStates);
-
     return resList.isEmpty
         ? const Center(child: Text('Work In Progress'))
         : RawScrollbar(
@@ -84,14 +82,36 @@ class _RestaurantListViewState extends State<RestaurantListView> {
                               ),
                             ),
                           ),
-                        RestaurantItem(),
+                        resList[i].isClosed == true
+                            ? ClipRRect(
+                                child: Banner(
+                                  location: BannerLocation.topStart,
+                                  message: 'Closed',
+                                  textStyle: const TextStyle(
+                                    fontSize: 14,
+                                  ),
+                                  child: RestaurantItem(),
+                                ),
+                              )
+                            : RestaurantItem(),
                       ],
                     ),
                   );
                 } else {
                   return ChangeNotifierProvider.value(
                     value: resList[i],
-                    child: RestaurantItem(),
+                    child: resList[i].isClosed == true
+                        ? ClipRRect(
+                            child: Banner(
+                              location: BannerLocation.topStart,
+                              message: 'Closed',
+                              textStyle: const TextStyle(
+                                fontSize: 14,
+                              ),
+                              child: RestaurantItem(),
+                            ),
+                          )
+                        : RestaurantItem(),
                   );
                 }
               },

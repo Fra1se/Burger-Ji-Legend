@@ -80,7 +80,7 @@ class Carts with ChangeNotifier {
 
     if (data != null) {
       final extractedData = json.decode(data) as List<dynamic>?;
-      var resId;
+      dynamic resId;
 
       if (extractedData != null) {
         _items.addAll(

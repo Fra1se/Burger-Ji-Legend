@@ -245,7 +245,7 @@ class _DirectPaymentScreenState extends State<DirectPaymentScreen> {
                             context: context,
                             barrierDismissible: false,
                             builder: (ctx) => PopScope(
-                              onPopInvokedWithResult: (_, __) => Future.value(false),
+                              onPopInvokedWithResult: (_, _) => Future.value(false),
                               child: const Center(
                                 child: CircularProgressIndicator(),
                               ),

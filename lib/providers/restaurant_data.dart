@@ -65,7 +65,6 @@ class Restaurants with ChangeNotifier {
               whatsApp: value['whatsApp'],
               line: value['line'],
               instagram: value['instagram'],
-
               receiveExceptions: rcvEx,
             ),
           );

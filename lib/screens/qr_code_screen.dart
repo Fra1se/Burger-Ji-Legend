@@ -17,7 +17,7 @@ import 'tabs_screen.dart';
 class QrCodeScreen extends StatefulWidget {
   const QrCodeScreen({super.key});
 
-  static const routeName = '/bayarlah-screen';
+  static const routeName = '/qr-code-screen';
 
   @override
   State<QrCodeScreen> createState() => _QrCodeScreenState();
@@ -34,8 +34,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
   Widget build(BuildContext context) {
     final scrollBarController = ScrollController();
 
-    final routeArgs =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final routeArgs = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
     final restaurantLalamove = routeArgs['restaurantLalamove'];
     final restaurantQrCode = routeArgs['restaurantQrCode'];
@@ -61,10 +60,11 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
           ),
           actions: [
             TextButton(
-                onPressed: (() {
-                  Navigator.of(context).pop();
-                }),
-                child: const Text('OK'))
+              onPressed: (() {
+                Navigator.of(context).pop();
+              }),
+              child: const Text('OK'),
+            ),
           ],
         ),
       );
@@ -85,7 +85,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.network(
-                restaurantQrCode['qrCode'],
+                restaurantQrCode,
                 height: MediaQuery.of(context).size.height - 150,
                 fit: BoxFit.cover,
               ),
@@ -107,7 +107,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                             context,
                             listen: false,
                           ).downloadImage(
-                            restaurantQrCode['qrCode'],
+                            restaurantQrCode,
                           );
 
                           setState(() {
@@ -162,8 +162,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                             _isLoading = true;
                           });
 
-                          final order =
-                              Provider.of<Orders>(context, listen: false);
+                          final order = Provider.of<Orders>(context, listen: false);
                           dynamic response;
 
                           try {
@@ -225,78 +224,56 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                             context: context,
                             barrierDismissible: false,
                             builder: (ctx) => PopScope(
-                              onPopInvokedWithResult: (_, __) =>
-                                  Future.value(false),
+                              onPopInvokedWithResult: (_, _) => Future.value(false),
                               child: const Center(
                                 child: CircularProgressIndicator(),
                               ),
                             ),
                           );
 
-                          final cart =
-                              Provider.of<Carts>(context, listen: false);
-                          final order =
-                              Provider.of<Orders>(context, listen: false);
-                          final myOrders =
-                              Provider.of<MyOrders>(context, listen: false);
+                          final cart = Provider.of<Carts>(context, listen: false);
+                          final order = Provider.of<Orders>(context, listen: false);
+                          final myOrders = Provider.of<MyOrders>(context, listen: false);
 
                           final nav = Navigator.of(context);
 
                           bool addOrderValidator = true;
 
                           try {
-                            if (paymentMethod != PaymentMethods.cash &&
-                                downloadUrl == null) {
-                              throw const HttpException(
-                                  'Invalid Payment Receipt');
+                            if (paymentMethod != PaymentMethods.cash && downloadUrl == null) {
+                              throw const HttpException('Invalid Payment Receipt');
                             }
 
                             await order.addOrder(
                               paymentMethod: paymentMethod,
                               resName: orderInfo.resName,
-                              deliveryInfo: orderInfo.receive !=
-                                      ReceiveOptions.delivery
+                              deliveryInfo: orderInfo.receive != ReceiveOptions.delivery
                                   ? null
                                   : {
                                       'apiKey': restaurantLalamove!['apiKey'],
-                                      'apiSecret':
-                                          restaurantLalamove!['apiSecret'],
+                                      'apiSecret': restaurantLalamove!['apiSecret'],
                                       //...
-                                      'quotationId':
-                                          orderInfo.lalamoveInfo!.quotationId,
-                                      'restaurantStopId': orderInfo
-                                          .lalamoveInfo!.restaurantStopId,
-                                      'customerStopId': orderInfo
-                                          .lalamoveInfo!.customerStopId,
+                                      'quotationId': orderInfo.lalamoveInfo!.quotationId,
+                                      'restaurantStopId': orderInfo.lalamoveInfo!.restaurantStopId,
+                                      'customerStopId': orderInfo.lalamoveInfo!.customerStopId,
                                       //...
                                       'restaurantName': orderInfo.resName,
-                                      'restaurantRawNumber':
-                                          orderInfo.resNumber,
+                                      'restaurantRawNumber': orderInfo.resNumber,
                                       'customerName': orderInfo.cusName,
                                       'customerNumber': orderInfo.cusNumber,
                                       //...
-                                      'restaurantAddress': orderInfo
-                                          .lalamoveInfo!.restaurantAddress,
-                                      'restaurantLat':
-                                          orderInfo.lalamoveInfo!.restaurantLat,
-                                      'restaurantLng':
-                                          orderInfo.lalamoveInfo!.restaurantLng,
+                                      'restaurantAddress': orderInfo.lalamoveInfo!.restaurantAddress,
+                                      'restaurantLat': orderInfo.lalamoveInfo!.restaurantLat,
+                                      'restaurantLng': orderInfo.lalamoveInfo!.restaurantLng,
                                       //...
-                                      'customerAddress': orderInfo
-                                          .lalamoveInfo!.customerAddress,
-                                      'customerLat':
-                                          orderInfo.lalamoveInfo!.customerLat,
-                                      'customerLng':
-                                          orderInfo.lalamoveInfo!.customerLng,
+                                      'customerAddress': orderInfo.lalamoveInfo!.customerAddress,
+                                      'customerLat': orderInfo.lalamoveInfo!.customerLat,
+                                      'customerLng': orderInfo.lalamoveInfo!.customerLng,
                                       //...
-                                      'customerState':
-                                          orderInfo.lalamoveInfo!.customerState,
-                                      'customerDistrict': orderInfo
-                                          .lalamoveInfo!.customerDistrict,
-                                      'customerSubDistrict': orderInfo
-                                          .lalamoveInfo!.customerSubDistrict,
-                                      'customerPostalCode': orderInfo
-                                          .lalamoveInfo!.customerPostalCode,
+                                      'customerState': orderInfo.lalamoveInfo!.customerState,
+                                      'customerDistrict': orderInfo.lalamoveInfo!.customerDistrict,
+                                      'customerSubDistrict': orderInfo.lalamoveInfo!.customerSubDistrict,
+                                      'customerPostalCode': orderInfo.lalamoveInfo!.customerPostalCode,
                                       //...
                                       'quotedFee': cart.deliverySum.toString(),
                                       //...
@@ -340,24 +317,26 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                           }
 
                           nav.pop();
-                          nav.pushNamedAndRemoveUntil(
-                              TabsScreen.routeName, (route) => false);
+                          nav.pushNamedAndRemoveUntil(TabsScreen.routeName, (route) => false);
 
                           if (context.mounted) {
                             showDialog(
-                                context: context,
-                                builder: (context) {
-                                  Future.delayed(
-                                      const Duration(
-                                        seconds: 5,
-                                      ), () {
+                              context: context,
+                              builder: (context) {
+                                Future.delayed(
+                                  const Duration(
+                                    seconds: 5,
+                                  ),
+                                  () {
                                     nav.pop(true);
-                                  });
-                                  return const AlertDialog(
-                                    title: Text('Alert'),
-                                    content: Text('Success - Order Sent'),
-                                  );
-                                });
+                                  },
+                                );
+                                return const AlertDialog(
+                                  title: Text('Alert'),
+                                  content: Text('Success - Order Sent'),
+                                );
+                              },
+                            );
                           }
                         },
                   icon: Icon(
@@ -374,7 +353,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 70),
             ],
           ),
         ),

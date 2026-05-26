@@ -153,7 +153,7 @@ class Orders with ChangeNotifier {
       {
         "data": {
           "serviceType": "MOTORCYCLE",
-          if (scheduledAt != null) "scheduleAt": scheduledAt,
+          "scheduleAt": ?scheduledAt,
           "language": "en_MY",
           "stops": [
             {
@@ -263,8 +263,8 @@ class Orders with ChangeNotifier {
             'resName': resName,
             'userId': userId,
             'fcmToken': await FirebaseMessaging.instance.getToken(),
-            if (receiptUrl != null) 'receiptUrl': receiptUrl,
-            if (deliveryInfo != null) 'deliveryInfo': deliveryInfo,
+            'receiptUrl': ?receiptUrl,
+            'deliveryInfo': ?deliveryInfo,
             'paymentMethod': paymentMethod.toString(),
             'timeStamp': timeStamp.toIso8601String(),
             'customerName': customerName,

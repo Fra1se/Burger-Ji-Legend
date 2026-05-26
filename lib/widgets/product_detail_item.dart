@@ -780,6 +780,7 @@ class ProductDetailItemState extends State<ProductDetailItem> {
                     ),
                   ],
                 ),
+                SizedBox(height: 70),
               ],
             ),
           ),

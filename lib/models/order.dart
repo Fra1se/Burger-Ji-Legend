@@ -10,9 +10,8 @@ enum ReceiveOptions {
 enum PaymentMethods {
   cash,
   transfer,
-  bayarlah,
-  bank,
-  ewallet,
+  bankQr,
+  tng,
 }
 
 class Order with ChangeNotifier {

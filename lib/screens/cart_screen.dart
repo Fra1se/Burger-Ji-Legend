@@ -1,3 +1,4 @@
+import 'package:burger_ji_legend/screens/product_category_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //...packages
@@ -7,7 +8,6 @@ import '../providers/restaurant_data.dart';
 import '../providers/cart_data.dart';
 //...providers
 
-import 'tabs_screen.dart';
 import 'order_screen.dart';
 //...screens
 
@@ -161,26 +161,28 @@ class CartScreen extends StatelessWidget {
                           children: [
                             Consumer<Restaurants>(
                               builder: (context, restaurant, child) {
-                                  return buttonBuilder(
+                                return buttonBuilder(
                                   color: Theme.of(context).colorScheme.primary,
                                   onColor: Theme.of(context).colorScheme.onPrimary,
-                                    icon: Icons.add_circle_outline_rounded,
-                                    text: 'Add More Orders',
-                                    onPressed: () async {
-                                    Navigator.of(context).pushReplacementNamed(TabsScreen.routeName);
-                                    },
-                                  );
+                                  icon: Icons.add_circle_outline_rounded,
+                                  text: 'Add More Orders',
+                                  onPressed: () async {
+                                    Navigator.of(context).pushReplacementNamed(
+                                      ProductCategoryScreen.routeName,
+                                      arguments: {
+                                        'restaurantId': Provider.of<Restaurants>(context, listen: false).selectedResId,
+                                        'restaurantTitle': Provider.of<Restaurants>(context, listen: false).selectedRestaurant.restaurantTitle,
+                                      }
+                                    );
+                                  },
+                                );
                               },
                             ),
                             buttonBuilder(
                               icon: Icons.clear,
                               text: 'Remove All Orders',
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .primaryContainer,
-                              onColor: Theme.of(context)
-                                  .colorScheme
-                                  .onPrimaryContainer,
+                              color: Theme.of(context).colorScheme.primaryContainer,
+                              onColor: Theme.of(context).colorScheme.onPrimaryContainer,
                               onPressed: () {
                                 if (cart.items.isEmpty) {
                                   showDialog(
@@ -263,8 +265,7 @@ class CartScreen extends StatelessWidget {
                                   context: context,
                                   barrierDismissible: false,
                                   builder: (ctx) => PopScope(
-                                    onPopInvokedWithResult: (_, __) =>
-                                        Future.value(false),
+                                    onPopInvokedWithResult: (_, _) => Future.value(false),
                                     child: const Center(
                                       child: CircularProgressIndicator(),
                                     ),
@@ -284,9 +285,7 @@ class CartScreen extends StatelessWidget {
                                   return;
                                 }
 
-                                bool? isClosed = restaurant
-                                    .findById(cart.items[0].restaurantId)
-                                    .isClosed;
+                                bool? isClosed = restaurant.findById(cart.items[0].restaurantId).isClosed;
                                 if (isClosed == true) {
                                   nav.pop();
                                   if (context.mounted) {
@@ -323,7 +322,7 @@ class CartScreen extends StatelessWidget {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

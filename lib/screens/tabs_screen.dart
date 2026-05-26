@@ -9,7 +9,6 @@ import '../providers/cart_data.dart';
 //...providers
 
 import 'my_orders_screen.dart';
-import 'main_location_screen.dart';
 import 'vouchers_screen.dart';
 import 'points_screen.dart';
 //...screens
@@ -81,12 +80,12 @@ class TabsScreenState extends State<TabsScreen> {
           ),
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.location_on_rounded),
-            onPressed: () {
-              Navigator.of(context).pushNamed(MainLocationScreen.routeName);
-            },
-          ),
+          // IconButton(
+          //   icon: const Icon(Icons.location_on_rounded),
+          //   onPressed: () {
+          //     Navigator.of(context).pushNamed(MainLocationScreen.routeName);
+          //   },
+          // ),
           const CartButton(),
         ],
       ),

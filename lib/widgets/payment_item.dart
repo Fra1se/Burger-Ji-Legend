@@ -24,7 +24,7 @@ class PaymentItem extends StatefulWidget {
 }
 
 class _PaymentItemState extends State<PaymentItem> {
-  PaymentMethods? _payment;
+  PaymentMethods? _paymentGroupValue;
 
   @override
   Widget build(BuildContext context) {
@@ -61,10 +61,11 @@ class _PaymentItemState extends State<PaymentItem> {
           ),
           actions: [
             TextButton(
-                onPressed: (() {
-                  Navigator.of(context).pop();
-                }),
-                child: const Text('OK'))
+              onPressed: (() {
+                Navigator.of(context).pop();
+              }),
+              child: const Text('OK'),
+            ),
           ],
         ),
       );
@@ -84,187 +85,158 @@ class _PaymentItemState extends State<PaymentItem> {
           padding: const EdgeInsets.all(10),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 5,
-                  vertical: 10,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Order Price :',
-                          style: TextStyle(
-                            fontSize: 14,
-                          ),
-                        ),
-                        Text(
-                          carts.totalProductSum.toStringAsFixed(2),
-                          style: const TextStyle(
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 5),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Tax : (6%)',
-                          style: TextStyle(
-                            fontSize: 14,
-                          ),
-                        ),
-                        Text(
-                          0.toStringAsFixed(2),
-                          style: const TextStyle(
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 5),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Delivery Fee :',
-                          style: TextStyle(
-                            fontSize: 14,
-                          ),
-                        ),
-                        Text(
-                          carts.deliverySum.toStringAsFixed(2),
-                          style: const TextStyle(
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                    if (carts.distance != null) const SizedBox(height: 5),
-                    if (carts.distance != null)
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          const Text(
+                            'Order Price :',
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
                           Text(
-                            'Distance :  ${carts.distance}',
+                            carts.totalProductSum.toStringAsFixed(2),
                             style: const TextStyle(
                               fontSize: 14,
                             ),
                           ),
                         ],
                       ),
-                    const SizedBox(height: 15),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Total Price :',
-                          style: TextStyle(
-                            fontSize: 14,
+                      const SizedBox(height: 5),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Tax (6%) :',
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
                           ),
+                          Text(
+                            0.toStringAsFixed(2),
+                            style: const TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 5),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Delivery Fee :',
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                          Text(
+                            carts.deliverySum.toStringAsFixed(2),
+                            style: const TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                      if (carts.distance != null) const SizedBox(height: 5),
+                      if (carts.distance != null)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Distance :  ${carts.distance}',
+                              style: const TextStyle(
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
                         ),
-                        Text(
-                          'MYR ${carts.totalPrice.toStringAsFixed(2)}',
-                          style: const TextStyle(
-                            fontSize: 14,
+                      Divider(
+                        height: 25,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Total Price :',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
+                          Text(
+                            'MYR ${carts.totalPrice.toStringAsFixed(2)}',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: RadioGroup<PaymentMethods>(
+                    groupValue: _paymentGroupValue,
+                    onChanged: (value) {
+                      setState(() {
+                        _paymentGroupValue = value;
+                      });
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Choose A Payment Method :'),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        RadioListTile<PaymentMethods>(
+                          value: PaymentMethods.cash,
+                          title: Text('Cash'),
+                          contentPadding: EdgeInsets.all(0),
+                          enabled: restaurantPaymentDetails?['cash'] != null,
+                          toggleable: true,
+                        ),
+                        RadioListTile<PaymentMethods>(
+                          value: PaymentMethods.transfer,
+                          title: Text('Bank Transfer'),
+                          contentPadding: EdgeInsets.all(0),
+                          enabled: restaurantPaymentDetails?['transfer'] != null,
+                          toggleable: true,
+                        ),
+                        RadioListTile<PaymentMethods>(
+                          value: PaymentMethods.bankQr,
+                          title: Text('Bank (QR Code)'),
+                          contentPadding: EdgeInsets.all(0),
+                          enabled: restaurantPaymentDetails?['bank']?['qrCode'] != null,
+                          toggleable: true,
+                        ),
+                        RadioListTile<PaymentMethods>(
+                          value: PaymentMethods.tng,
+                          title: Text('Touch n Go (QR Code)'),
+                          contentPadding: EdgeInsets.all(0),
+                          enabled: restaurantPaymentDetails?['tng']?['qrCode'] != null,
+                          toggleable: true,
+                        ),
+                        RadioListTile<PaymentMethods>(
+                          value: PaymentMethods.cash,
+                          title: Text('Cash'),
+                          contentPadding: EdgeInsets.all(0),
+                          enabled: restaurantPaymentDetails?['cash'] != null,
+                          toggleable: true,
                         ),
                       ],
                     ),
-                  ],
-                ),
-              ),
-              RadioListTile<PaymentMethods>(
-                contentPadding: const EdgeInsets.all(0),
-                title: const Text(
-                  'Cash',
-                  style: TextStyle(fontSize: 14),
-                ),
-                value: PaymentMethods.cash,
-                groupValue: _payment,
-                onChanged: !(orderInfo.receive == ReceiveOptions.dineIn || orderInfo.receive == ReceiveOptions.takeAway)
-                    ? null
-                    : (value) {
-                        setState(() {
-                          _payment = value;
-                        });
-                      },
-              ),
-              RadioListTile<PaymentMethods>(
-                contentPadding: const EdgeInsets.all(0),
-                title: const Text(
-                  'Bank Transfer',
-                  style: TextStyle(fontSize: 14),
-                ),
-                value: PaymentMethods.transfer,
-                groupValue: _payment,
-                onChanged: restaurantPaymentDetails?['transfer'] == null
-                    ? null
-                    : (value) {
-                        setState(() {
-                          _payment = value;
-                        });
-                      },
-              ),
-              RadioListTile<PaymentMethods>(
-                contentPadding: const EdgeInsets.all(0),
-                title: const Text(
-                  'Bayarlah (QR Code)',
-                  style: TextStyle(
-                    fontSize: 14,
                   ),
                 ),
-                value: PaymentMethods.bayarlah,
-                groupValue: _payment,
-                onChanged: restaurantPaymentDetails?['bayarlah'] == null
-                    ? null
-                    : (value) {
-                        setState(() {
-                          _payment = value;
-                        });
-                      },
-              ),
-              RadioListTile<PaymentMethods>(
-                contentPadding: const EdgeInsets.all(0),
-                title: const Text(
-                  'Bank (QR Code)',
-                  style: TextStyle(
-                    fontSize: 14,
-                  ),
-                ),
-                value: PaymentMethods.bank,
-                groupValue: _payment,
-                onChanged: restaurantPaymentDetails?['bank'] == null
-                    ? null
-                    : (value) {
-                        setState(() {
-                          _payment = value;
-                        });
-                      },
-              ),
-              RadioListTile<PaymentMethods>(
-                contentPadding: const EdgeInsets.all(0),
-                title: const Text(
-                  'e-Wallet (QR Code)',
-                  style: TextStyle(
-                    fontSize: 14,
-                  ),
-                ),
-                value: PaymentMethods.ewallet,
-                groupValue: _payment,
-                //onChanged: null,
-                onChanged: restaurantPaymentDetails?['ewallet'] == null
-                    ? null
-                    : (value) {
-                        setState(() {
-                          _payment = value;
-                        });
-                      },
               ),
               const SizedBox(height: 20),
               SizedBox(
@@ -293,54 +265,44 @@ class _PaymentItemState extends State<PaymentItem> {
                     ),
                   ),
                   onPressed: () async {
-                    if (_payment == null) {
+                    if (_paymentGroupValue == null) {
                       return alertDialog(
                         title: 'Alert',
                         content: 'Please Choose Payment Method',
                       );
                     }
 
-                    if (_payment == PaymentMethods.transfer) {
+                    if (_paymentGroupValue == PaymentMethods.transfer) {
                       Navigator.of(context).pushNamed(
                         DirectPaymentScreen.routeName,
                         arguments: {
                           'restaurantLalamove': restaurantLalamove,
                           'restaurantBankDetails': restaurantPaymentDetails?['transfer'],
-                          'paymentMethod': _payment,
+                          'paymentMethod': _paymentGroupValue,
                           'orderInfo': orderInfo,
                         },
                       );
-                    } else if (_payment == PaymentMethods.bayarlah) {
+                    } else if (_paymentGroupValue == PaymentMethods.bankQr) {
                       Navigator.of(context).pushNamed(
                         QrCodeScreen.routeName,
                         arguments: {
                           'restaurantLalamove': restaurantLalamove,
-                          'restaurantQrCode': restaurantPaymentDetails?['bayarlah'],
-                          'paymentMethod': _payment,
+                          'restaurantQrCode': restaurantPaymentDetails?['bank']['qrCode'].toString(),
+                          'paymentMethod': _paymentGroupValue,
                           'orderInfo': orderInfo,
                         },
                       );
-                    } else if (_payment == PaymentMethods.bank) {
+                    } else if (_paymentGroupValue == PaymentMethods.tng) {
                       Navigator.of(context).pushNamed(
                         QrCodeScreen.routeName,
                         arguments: {
                           'restaurantLalamove': restaurantLalamove,
-                          'restaurantQrCode': restaurantPaymentDetails?['bank'],
-                          'paymentMethod': _payment,
+                          'restaurantQrCode': restaurantPaymentDetails?['tng']['qrCode'].toString(),
+                          'paymentMethod': _paymentGroupValue,
                           'orderInfo': orderInfo,
                         },
                       );
-                    } else if (_payment == PaymentMethods.ewallet) {
-                      Navigator.of(context).pushNamed(
-                        QrCodeScreen.routeName,
-                        arguments: {
-                          'restaurantLalamove': restaurantLalamove,
-                          'restaurantQrCode': restaurantPaymentDetails?['ewallet'],
-                          'paymentMethod': _payment,
-                          'orderInfo': orderInfo,
-                        },
-                      );
-                    } else if (_payment == PaymentMethods.cash) {
+                    } else if (_paymentGroupValue == PaymentMethods.cash) {
                       showDialog(
                         context: context,
                         builder: (ctx) => AlertDialog(
@@ -370,7 +332,7 @@ class _PaymentItemState extends State<PaymentItem> {
 
                                 try {
                                   await order.addOrder(
-                                    paymentMethod: _payment!,
+                                    paymentMethod: _paymentGroupValue!,
                                     resName: orderInfo.resName,
                                     deliveryInfo: orderInfo.receive != ReceiveOptions.delivery
                                         ? null
@@ -456,7 +418,7 @@ class _PaymentItemState extends State<PaymentItem> {
                     }
                   },
                 ),
-              )
+              ),
             ],
           ),
         ),

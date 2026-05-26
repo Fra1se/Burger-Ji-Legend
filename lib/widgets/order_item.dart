@@ -393,7 +393,7 @@ class OrderItemState extends State<OrderItem> {
                   RadioListTile<ReceiveOptions>(
                     toggleable: true,
                     contentPadding: const EdgeInsets.all(0),
-                    title: const Text('Take-Away', style: TextStyle(fontSize: 14)),
+                    title: const Text('Press Here for ASAP Delivery/Take-Away', style: TextStyle(fontSize: 14)),
                     tileColor: Theme.of(context).colorScheme.surface,
                     value: ReceiveOptions.takeAway,
                     groupValue: _receive,
@@ -427,7 +427,7 @@ class OrderItemState extends State<OrderItem> {
                               context: context,
                               barrierDismissible: false,
                               builder: (ctx) => PopScope(
-                                onPopInvokedWithResult: (_, __) => Future.value(false),
+                                onPopInvokedWithResult: (_, _) => Future.value(false),
                                 child: const Center(child: CircularProgressIndicator()),
                               ),
                             );
@@ -544,7 +544,7 @@ class OrderItemState extends State<OrderItem> {
                             context: context,
                             barrierDismissible: false,
                             builder: (ctx) => PopScope(
-                              onPopInvokedWithResult: (_, __) => Future.value(false),
+                              onPopInvokedWithResult: (_, _) => Future.value(false),
                               child: const Center(child: CircularProgressIndicator()),
                             ),
                           );
@@ -634,6 +634,7 @@ class OrderItemState extends State<OrderItem> {
                       },
                     ),
                   ),
+                  SizedBox(height: 70),
                 ],
               ),
             ),
