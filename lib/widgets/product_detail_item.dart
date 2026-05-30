@@ -434,6 +434,12 @@ class ProductDetailItemState extends State<ProductDetailItem> {
                                 'Merchant is Now Closed',
                               );
                             }
+                            if (restaurantById.isClosed == true) {
+                              return showAlert(
+                                'Temporarily Closed',
+                                'Too Many Orders\nTry Again in 1 Hour',
+                              );
+                            }
                             if (isOut == true) {
                               return showAlert(
                                 'Out of Stock',

@@ -46,6 +46,8 @@ class Restaurants with ChangeNotifier {
           _items.add(
             Restaurant(
               isClosed: value['isClosed'],
+              isTempClosed: value['isTempClosed'],
+              ///...
               restaurantTitle: value['title'],
               restaurantChTitle: value['chTitle'],
               restaurantId: key,

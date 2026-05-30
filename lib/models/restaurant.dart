@@ -15,6 +15,7 @@ class ReceiveExceptions {
 
 class Restaurant with ChangeNotifier {
   bool? isClosed;
+  bool? isTempClosed;
 
   String restaurantTitle;
   String restaurantChTitle;
@@ -44,6 +45,7 @@ class Restaurant with ChangeNotifier {
 
   Restaurant({
     required this.isClosed,
+    required this.isTempClosed,
     required this.restaurantTitle,
     required this.restaurantChTitle,
     required this.restaurantId,

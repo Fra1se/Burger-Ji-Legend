@@ -82,7 +82,7 @@ class _RestaurantListViewState extends State<RestaurantListView> {
                               ),
                             ),
                           ),
-                        resList[i].isClosed == true
+                        resList[i].isClosed == true || resList[i].isTempClosed == true
                             ? ClipRRect(
                                 child: Banner(
                                   location: BannerLocation.topStart,
@@ -100,7 +100,7 @@ class _RestaurantListViewState extends State<RestaurantListView> {
                 } else {
                   return ChangeNotifierProvider.value(
                     value: resList[i],
-                    child: resList[i].isClosed == true
+                    child: resList[i].isClosed == true || resList[i].isTempClosed == true
                         ? ClipRRect(
                             child: Banner(
                               location: BannerLocation.topStart,

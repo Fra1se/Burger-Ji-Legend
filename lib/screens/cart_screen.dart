@@ -171,8 +171,11 @@ class CartScreen extends StatelessWidget {
                                       ProductCategoryScreen.routeName,
                                       arguments: {
                                         'restaurantId': Provider.of<Restaurants>(context, listen: false).selectedResId,
-                                        'restaurantTitle': Provider.of<Restaurants>(context, listen: false).selectedRestaurant.restaurantTitle,
-                                      }
+                                        'restaurantTitle': Provider.of<Restaurants>(
+                                          context,
+                                          listen: false,
+                                        ).selectedRestaurant.restaurantTitle,
+                                      },
                                     );
                                   },
                                 );
@@ -286,7 +289,9 @@ class CartScreen extends StatelessWidget {
                                 }
 
                                 bool? isClosed = restaurant.findById(cart.items[0].restaurantId).isClosed;
-                                if (isClosed == true) {
+                                bool? isTempClosed = restaurant.findById(cart.items[0].restaurantId).isTempClosed;
+
+                                if (isClosed == true || isTempClosed == true) {
                                   nav.pop();
                                   if (context.mounted) {
                                     return showDialog(
