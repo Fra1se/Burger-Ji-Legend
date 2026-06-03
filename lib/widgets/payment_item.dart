@@ -202,7 +202,6 @@ class _PaymentItemState extends State<PaymentItem> {
                           value: PaymentMethods.cash,
                           title: Text('Cash'),
                           contentPadding: EdgeInsets.all(0),
-                          enabled: restaurantPaymentDetails?['cash'] != null,
                           toggleable: true,
                         ),
                         RadioListTile<PaymentMethods>(
@@ -224,13 +223,6 @@ class _PaymentItemState extends State<PaymentItem> {
                           title: Text('Touch n Go (QR Code)'),
                           contentPadding: EdgeInsets.all(0),
                           enabled: restaurantPaymentDetails?['tng']?['qrCode'] != null,
-                          toggleable: true,
-                        ),
-                        RadioListTile<PaymentMethods>(
-                          value: PaymentMethods.cash,
-                          title: Text('Cash'),
-                          contentPadding: EdgeInsets.all(0),
-                          enabled: restaurantPaymentDetails?['cash'] != null,
                           toggleable: true,
                         ),
                       ],

@@ -369,7 +369,7 @@ class OrderItemState extends State<OrderItem> {
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
                       margin: const EdgeInsets.only(top: 5),
-                      child: const Text('Press Here for ASAP Delivery'),
+                      child: const Text('Press Here for Delivery/Take-Away'),
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -393,7 +393,7 @@ class OrderItemState extends State<OrderItem> {
                   RadioListTile<ReceiveOptions>(
                     toggleable: true,
                     contentPadding: const EdgeInsets.all(0),
-                    title: const Text('Press Here for ASAP Delivery/Take-Away', style: TextStyle(fontSize: 14)),
+                    title: const Text('Take-Away', style: TextStyle(fontSize: 14)),
                     tileColor: Theme.of(context).colorScheme.surface,
                     value: ReceiveOptions.takeAway,
                     groupValue: _receive,

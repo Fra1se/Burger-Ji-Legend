@@ -82,7 +82,7 @@ class _RestaurantListViewState extends State<RestaurantListView> {
                               ),
                             ),
                           ),
-                        resList[i].isClosed == true || resList[i].isTempClosed == true
+                        resList[i].isClosed == true
                             ? ClipRRect(
                                 child: Banner(
                                   location: BannerLocation.topStart,
@@ -93,6 +93,30 @@ class _RestaurantListViewState extends State<RestaurantListView> {
                                   child: RestaurantItem(),
                                 ),
                               )
+                            : resList[i].isTempClosed == true
+                            ? Column(
+                                children: [
+                                  RestaurantItem(),
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 8,
+                                        vertical: 5,
+                                      ),
+                                      width: double.infinity,
+                                      color: Colors.red,
+                                      child: Text(
+                                        'Too Many Orders (Try Again Later)',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
                             : RestaurantItem(),
                       ],
                     ),
@@ -100,7 +124,7 @@ class _RestaurantListViewState extends State<RestaurantListView> {
                 } else {
                   return ChangeNotifierProvider.value(
                     value: resList[i],
-                    child: resList[i].isClosed == true || resList[i].isTempClosed == true
+                    child: resList[i].isClosed == true
                         ? ClipRRect(
                             child: Banner(
                               location: BannerLocation.topStart,
@@ -110,6 +134,30 @@ class _RestaurantListViewState extends State<RestaurantListView> {
                               ),
                               child: RestaurantItem(),
                             ),
+                          )
+                        : resList[i].isTempClosed == true
+                        ? Column(
+                            children: [
+                              RestaurantItem(),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 5,
+                                  ),
+                                  width: double.infinity,
+                                  color: Colors.red,
+                                  child: Text(
+                                    'Too Many Orders (Try Again Later)',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           )
                         : RestaurantItem(),
                   );
