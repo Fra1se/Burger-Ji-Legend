@@ -65,7 +65,7 @@ class Restaurants with ChangeNotifier {
               rawNumber: value['rawNumber'],
               facebook: value['facebook'],
               whatsApp: value['whatsApp'],
-              line: value['line'],
+              tiktok: value['tiktok'],
               instagram: value['instagram'],
               receiveExceptions: rcvEx,
             ),

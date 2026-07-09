@@ -245,6 +245,13 @@ class ProductDetailItemState extends State<ProductDetailItem> {
                         restaurantById.whatsApp,
                       ),
 
+                    if (restaurantById.tiktok != '') const Divider(),
+                    if (restaurantById.tiktok != '')
+                      contactInfoBuilder(
+                        FontAwesomeIcons.tiktok,
+                        restaurantById.tiktok,
+                      ),
+
                     if (restaurantById.facebook != '') const Divider(),
                     if (restaurantById.facebook != '')
                       contactInfoBuilder(
@@ -508,33 +515,54 @@ class ProductDetailItemState extends State<ProductDetailItem> {
                                               if (map['base'] != null)
                                                 StatefulBuilder(
                                                   builder: (_, setBaseState) {
-                                                    return ListView.builder(
-                                                      controller: variController,
-                                                      physics: const NeverScrollableScrollPhysics(),
-                                                      shrinkWrap: true,
-                                                      itemCount: map['base']['list'].length,
-                                                      itemBuilder: (_, i) {
-                                                        final item = map['base']['list'][i];
-                                                        return RadioListTile<ProductVariations>(
-                                                          toggleable: true,
-                                                          title: Text(item.title),
-                                                          subtitle: Text(
-                                                            'MYR  ${(item.price as double).toStringAsFixed(2)}',
-                                                          ),
-                                                          value: item,
-                                                          groupValue: baseValue,
-                                                          onChanged: item.isOut
-                                                              ? null
-                                                              : (value) {
-                                                                  setBaseState(() {
-                                                                    baseValue = value;
-                                                                  });
+                                                    return RadioGroup<ProductVariations>(
+                                                      groupValue: baseValue,
+                                                      onChanged: (value) {
+                                                        setBaseState(() {
+                                                          baseValue = value;
+                                                        });
 
-                                                                  vari.setBaseValue = value;
-                                                                  vari.notify();
-                                                                },
-                                                        );
+                                                        vari.setBaseValue = value;
+                                                        vari.notify();
                                                       },
+                                                      child: ListView.builder(
+                                                        controller: variController,
+                                                        physics: const NeverScrollableScrollPhysics(),
+                                                        shrinkWrap: true,
+                                                        itemCount: map['base']['list'].length,
+                                                        itemBuilder: (_, i) {
+                                                          final item = map['base']['list'][i];
+                                                          return RadioListTile<ProductVariations>(
+                                                            value: item,
+                                                            title: Text(item.title),
+                                                            toggleable: true,
+                                                            subtitle: Text(
+                                                              'MYR  ${(item.price as double).toStringAsFixed(2)}',
+                                                            ),
+                                                            enabled: !item.isOut,
+                                                          );
+
+                                                          // RadioListTile<ProductVariations>(
+                                                          //   toggleable: true,
+                                                          //   title: Text(item.title),
+                                                          //   subtitle: Text(
+                                                          //     'MYR  ${(item.price as double).toStringAsFixed(2)}',
+                                                          //   ),
+                                                          //   value: item,
+                                                          //   groupValue: baseValue,
+                                                          //   onChanged: item.isOut
+                                                          //       ? null
+                                                          //       : (value) {
+                                                          //           setBaseState(() {
+                                                          //             baseValue = value;
+                                                          //           });
+
+                                                          //           vari.setBaseValue = value;
+                                                          //           vari.notify();
+                                                          //         },
+                                                          // );
+                                                        },
+                                                      ),
                                                     );
                                                   },
                                                 ),
@@ -570,43 +598,70 @@ class ProductDetailItemState extends State<ProductDetailItem> {
                                                         map['extra'][index]['isSingle'] == true
                                                             ? StatefulBuilder(
                                                                 builder: (_, setExtraState) {
-                                                                  return ListView.builder(
-                                                                    controller: variController,
-                                                                    physics: const NeverScrollableScrollPhysics(),
-                                                                    shrinkWrap: true,
-                                                                    itemCount: map['extra'][index]['list'].length,
-                                                                    itemBuilder: (context, i) {
-                                                                      final item =
-                                                                          map['extra'][index]['list'][i]
-                                                                              as ProductVariations;
-                                                                      return RadioListTile<ProductVariations>(
-                                                                        toggleable: true,
-                                                                        title: Text(item.title),
-                                                                        subtitle: Text(
-                                                                          'MYR  ${(item.price).toStringAsFixed(2)}',
-                                                                        ),
-                                                                        value: item,
-                                                                        groupValue: extraValue,
-                                                                        onChanged: item.isOut == true
-                                                                            ? null
-                                                                            : (value) {
-                                                                                setExtraState(() {
-                                                                                  extraValue = value;
-                                                                                  if (map['extra'][index]['isRequired'] ==
-                                                                                      true) {
-                                                                                    extraIsValid[index] = value == null
-                                                                                        ? false
-                                                                                        : true;
-                                                                                  }
-                                                                                });
+                                                                  return RadioGroup<ProductVariations>(
+                                                                    groupValue: extraValue,
+                                                                    onChanged: (value) {
+                                                                      setExtraState(() {
+                                                                        extraValue = value;
+                                                                        if (map['extra'][index]['isRequired'] == true) {
+                                                                          extraIsValid[index] = value == null ? false : true;
+                                                                        }
+                                                                      });
 
-                                                                                vari.setExtraValue = value == null
-                                                                                    ? {'$index': null}
-                                                                                    : {'$index': value};
-                                                                                vari.notify();
-                                                                              },
-                                                                      );
+                                                                      vari.setExtraValue = value == null
+                                                                          ? {'$index': null}
+                                                                          : {'$index': value};
+                                                                      vari.notify();
                                                                     },
+                                                                    child: ListView.builder(
+                                                                      controller: variController,
+                                                                      physics: const NeverScrollableScrollPhysics(),
+                                                                      shrinkWrap: true,
+                                                                      itemCount: map['extra'][index]['list'].length,
+                                                                      itemBuilder: (context, i) {
+                                                                        final item =
+                                                                            map['extra'][index]['list'][i]
+                                                                                as ProductVariations;
+
+                                                                        return RadioListTile<ProductVariations>(
+                                                                          value: item,
+                                                                          title: Text(item.title),
+                                                                          toggleable: true,
+                                                                          subtitle: Text(
+                                                                            'MYR  ${(item.price).toStringAsFixed(2)}',
+                                                                          ),
+                                                                          enabled: item.isOut ?? false ? false : true,
+                                                                        );
+
+                                                                        // RadioListTile<ProductVariations>(
+                                                                        //   toggleable: true,
+                                                                        //   title: Text(item.title),
+                                                                        //   subtitle: Text(
+                                                                        //     'MYR  ${(item.price).toStringAsFixed(2)}',
+                                                                        //   ),
+                                                                        //   value: item,
+                                                                        //   groupValue: extraValue,
+                                                                        //   onChanged: item.isOut == true
+                                                                        //       ? null
+                                                                        //       : (value) {
+                                                                        //           setExtraState(() {
+                                                                        //             extraValue = value;
+                                                                        //             if (map['extra'][index]['isRequired'] ==
+                                                                        //                 true) {
+                                                                        //               extraIsValid[index] = value == null
+                                                                        //                   ? false
+                                                                        //                   : true;
+                                                                        //             }
+                                                                        //           });
+
+                                                                        //           vari.setExtraValue = value == null
+                                                                        //               ? {'$index': null}
+                                                                        //               : {'$index': value};
+                                                                        //           vari.notify();
+                                                                        //         },
+                                                                        // );
+                                                                      },
+                                                                    ),
                                                                   );
                                                                 },
                                                               )

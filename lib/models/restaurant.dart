@@ -40,7 +40,7 @@ class Restaurant with ChangeNotifier {
   String rawNumber;
   String facebook;
   String whatsApp;
-  String line;
+  String tiktok;
   String instagram;
 
   Restaurant({
@@ -64,7 +64,7 @@ class Restaurant with ChangeNotifier {
     required this.rawNumber,
     required this.facebook,
     required this.whatsApp,
-    required this.line,
+    required this.tiktok,
     required this.instagram,
   });
 }
