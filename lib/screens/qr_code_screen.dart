@@ -88,6 +88,17 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                 restaurantQrCode,
                 height: MediaQuery.of(context).size.height - 150,
                 fit: BoxFit.cover,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) {
+                    return child;
+                  }
+                  return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 250),
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                },
               ),
               const SizedBox(height: 5),
               Padding(
@@ -316,21 +327,16 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                             return;
                           }
 
-                          nav.pop();
-                          nav.pushNamedAndRemoveUntil(TabsScreen.routeName, (route) => false);
+                          nav.pushNamedAndRemoveUntil(
+                            TabsScreen.routeName,
+                            (route) => false,
+                            arguments: 3,
+                          );
 
                           if (context.mounted) {
                             showDialog(
                               context: context,
                               builder: (context) {
-                                Future.delayed(
-                                  const Duration(
-                                    seconds: 5,
-                                  ),
-                                  () {
-                                    nav.pop(true);
-                                  },
-                                );
                                 return const AlertDialog(
                                   title: Text('Alert'),
                                   content: Text('Success - Order Sent'),

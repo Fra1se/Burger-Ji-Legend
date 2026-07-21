@@ -57,6 +57,11 @@ class Orders with ChangeNotifier {
   Future<dynamic> receiveDetails() async {
     try {
       final file = await _detailsFile;
+      if (!await file.exists()) {
+        details = null;
+        return;
+      }
+
       String? body = await file.readAsString();
 
       dynamic extractedData = json.decode(body) as Map<String, dynamic>;
@@ -101,6 +106,11 @@ class Orders with ChangeNotifier {
   Future<dynamic> receiveAddres() async {
     try {
       final file = await _addressFile;
+      if (!await file.exists()) {
+        orderAddress = null;
+        return;
+      }
+
       String body = await file.readAsString();
 
       dynamic extractedData = json.decode(body) as Map<String, dynamic>;

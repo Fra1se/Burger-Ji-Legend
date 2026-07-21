@@ -29,6 +29,7 @@ class TabsScreen extends StatefulWidget {
 class TabsScreenState extends State<TabsScreen> {
   List<Map> _screens = [];
   int _selectedScreenIndex = 0;
+  bool isInit = true;
   //...
 
   void _selectScreen(int index) {
@@ -63,6 +64,7 @@ class TabsScreenState extends State<TabsScreen> {
       carts.receiveItems(context);
       carts.isInit = false;
     }
+
     super.initState();
   }
 
@@ -70,6 +72,16 @@ class TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    int? chosenScreenIndex = ModalRoute.of(context)?.settings.arguments as int?;
+
+    if (chosenScreenIndex != null && isInit) {
+      _selectedScreenIndex = chosenScreenIndex;
+      setState(() {
+        chosenScreenIndex = null;
+        isInit = false;
+      });
+    }
+
     return Scaffold(
       drawer: const MainDrawer(),
       appBar: AppBar(

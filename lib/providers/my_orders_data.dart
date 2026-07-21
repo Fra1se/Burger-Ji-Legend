@@ -29,7 +29,7 @@ class MyOrders with ChangeNotifier {
       Uri url = Uri.parse('https://us-central1-valueat-app.cloudfunctions.net/receiveMyOrders?text=$fcmToken');
       final response = await http.get(url);
 
-      if (response.body.isEmpty) {
+      if (response.body.isEmpty || response.body == 'null') {
         return;
       } else {
         final data = (json.decode(response.body) as Map<String, dynamic>);

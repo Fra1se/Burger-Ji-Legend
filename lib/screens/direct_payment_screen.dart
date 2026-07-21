@@ -31,8 +31,7 @@ class _DirectPaymentScreenState extends State<DirectPaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final routeArgs =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final routeArgs = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final restaurantBankDetails = routeArgs['restaurantBankDetails'];
     final restaurantLalamove = routeArgs['restaurantLalamove'];
     final paymentMethod = routeArgs['paymentMethod'];
@@ -57,10 +56,11 @@ class _DirectPaymentScreenState extends State<DirectPaymentScreen> {
           ),
           actions: [
             TextButton(
-                onPressed: (() {
-                  Navigator.of(context).pop();
-                }),
-                child: const Text('OK'))
+              onPressed: (() {
+                Navigator.of(context).pop();
+              }),
+              child: const Text('OK'),
+            ),
           ],
         ),
       );
@@ -185,8 +185,7 @@ class _DirectPaymentScreenState extends State<DirectPaymentScreen> {
                           _isLoading = true;
                         });
 
-                        final order =
-                            Provider.of<Orders>(context, listen: false);
+                        final order = Provider.of<Orders>(context, listen: false);
                         dynamic response;
 
                         try {
@@ -252,70 +251,49 @@ class _DirectPaymentScreenState extends State<DirectPaymentScreen> {
                             ),
                           );
 
-                          final cart =
-                              Provider.of<Carts>(context, listen: false);
-                          final order =
-                              Provider.of<Orders>(context, listen: false);
-                          final myOrders =
-                              Provider.of<MyOrders>(context, listen: false);
+                          final cart = Provider.of<Carts>(context, listen: false);
+                          final order = Provider.of<Orders>(context, listen: false);
+                          final myOrders = Provider.of<MyOrders>(context, listen: false);
 
                           final nav = Navigator.of(context);
 
                           bool addOrderValidator = true;
 
                           try {
-                            if (paymentMethod != PaymentMethods.cash &&
-                                downloadUrl == null) {
-                              throw const HttpException(
-                                  'Invalid Payment Receipt');
+                            if (paymentMethod != PaymentMethods.cash && downloadUrl == null) {
+                              throw const HttpException('Invalid Payment Receipt');
                             }
 
                             await order.addOrder(
                               paymentMethod: paymentMethod,
                               resName: orderInfo.resName,
-                              deliveryInfo: orderInfo.receive !=
-                                      ReceiveOptions.delivery
+                              deliveryInfo: orderInfo.receive != ReceiveOptions.delivery
                                   ? null
                                   : {
                                       'apiKey': restaurantLalamove!['apiKey'],
-                                      'apiSecret':
-                                          restaurantLalamove!['apiSecret'],
+                                      'apiSecret': restaurantLalamove!['apiSecret'],
                                       //...
-                                      'quotationId':
-                                          orderInfo.lalamoveInfo!.quotationId,
-                                      'restaurantStopId': orderInfo
-                                          .lalamoveInfo!.restaurantStopId,
-                                      'customerStopId': orderInfo
-                                          .lalamoveInfo!.customerStopId,
+                                      'quotationId': orderInfo.lalamoveInfo!.quotationId,
+                                      'restaurantStopId': orderInfo.lalamoveInfo!.restaurantStopId,
+                                      'customerStopId': orderInfo.lalamoveInfo!.customerStopId,
                                       //...
                                       'restaurantName': orderInfo.resName,
-                                      'restaurantRawNumber':
-                                          orderInfo.resNumber,
+                                      'restaurantRawNumber': orderInfo.resNumber,
                                       'customerName': orderInfo.cusName,
                                       'customerNumber': orderInfo.cusNumber,
                                       //...
-                                      'restaurantAddress': orderInfo
-                                          .lalamoveInfo!.restaurantAddress,
-                                      'restaurantLat':
-                                          orderInfo.lalamoveInfo!.restaurantLat,
-                                      'restaurantLng':
-                                          orderInfo.lalamoveInfo!.restaurantLng,
+                                      'restaurantAddress': orderInfo.lalamoveInfo!.restaurantAddress,
+                                      'restaurantLat': orderInfo.lalamoveInfo!.restaurantLat,
+                                      'restaurantLng': orderInfo.lalamoveInfo!.restaurantLng,
                                       //...
-                                      'customerAddress': orderInfo
-                                          .lalamoveInfo!.customerAddress,
-                                      'customerLat':
-                                          orderInfo.lalamoveInfo!.customerLat,
-                                      'customerLng':
-                                          orderInfo.lalamoveInfo!.customerLng,
+                                      'customerAddress': orderInfo.lalamoveInfo!.customerAddress,
+                                      'customerLat': orderInfo.lalamoveInfo!.customerLat,
+                                      'customerLng': orderInfo.lalamoveInfo!.customerLng,
                                       //...
-                                      'customerState':
-                                          orderInfo.lalamoveInfo!.customerState,
-                                      'customerDistrict': orderInfo
-                                          .lalamoveInfo!.customerDistrict,
-                                      'customerSubDistrict': orderInfo
-                                          .lalamoveInfo!.customerSubDistrict,
-                                      'customerPostalCode': orderInfo
-                                          .lalamoveInfo!.customerPostalCode,
+                                      'customerState': orderInfo.lalamoveInfo!.customerState,
+                                      'customerDistrict': orderInfo.lalamoveInfo!.customerDistrict,
+                                      'customerSubDistrict': orderInfo.lalamoveInfo!.customerSubDistrict,
+                                      'customerPostalCode': orderInfo.lalamoveInfo!.customerPostalCode,
                                       //...
                                       'quotedFee': cart.deliverySum.toString(),
                                       //...
@@ -358,25 +336,22 @@ class _DirectPaymentScreenState extends State<DirectPaymentScreen> {
                             return;
                           }
 
-                          nav.pop();
                           nav.pushNamedAndRemoveUntil(
-                              TabsScreen.routeName, (route) => false);
+                            TabsScreen.routeName,
+                            (route) => false,
+                            arguments: 3,
+                          );
 
                           if (context.mounted) {
                             showDialog(
-                                context: context,
-                                builder: (context) {
-                                  Future.delayed(
-                                      const Duration(
-                                        seconds: 5,
-                                      ), () {
-                                    nav.pop(true);
-                                  });
-                                  return const AlertDialog(
-                                    title: Text('Alert'),
-                                    content: Text('Success - Order Sent'),
-                                  );
-                                });
+                              context: context,
+                              builder: (context) {
+                                return const AlertDialog(
+                                  title: Text('Alert'),
+                                  content: Text('Success - Order Sent'),
+                                );
+                              },
+                            );
                           }
                         },
                   icon: Icon(

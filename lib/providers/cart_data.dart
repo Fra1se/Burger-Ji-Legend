@@ -66,6 +66,9 @@ class Carts with ChangeNotifier {
   Future<dynamic> readItems() async {
     try {
       final file = await _localFile;
+      if (!await file.exists()) {
+        return null;
+      }
       String body = await file.readAsString();
       return body;
     } catch (e) {

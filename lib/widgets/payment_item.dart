@@ -202,6 +202,7 @@ class _PaymentItemState extends State<PaymentItem> {
                           value: PaymentMethods.cash,
                           title: Text('Cash'),
                           contentPadding: EdgeInsets.all(0),
+                          enabled: orderInfo.receive != ReceiveOptions.delivery,
                           toggleable: true,
                         ),
                         RadioListTile<PaymentMethods>(
@@ -380,7 +381,11 @@ class _PaymentItemState extends State<PaymentItem> {
                                 await myOrders.receiveMyOrders();
                                 myOrders.notify();
 
-                                nav.pushNamedAndRemoveUntil(TabsScreen.routeName, (route) => false);
+                                nav.pushNamedAndRemoveUntil(
+                                  TabsScreen.routeName,
+                                  (route) => false,
+                                  arguments: 3,
+                                );
 
                                 if (context.mounted) {
                                   showDialog(
