@@ -571,8 +571,8 @@ class OrderItemState extends State<OrderItem> {
                           if (_receive == ReceiveOptions.delivery && quote?['quotationId'] == null) {
                             showAlert(
                               (ctx) => AlertDialog(
-                                title: const Text('ERROR'),
-                                content: const Text("There was an error with getting a delivery price"),
+                                title: Text('ERROR ${quote?['statusCode']}'),
+                                content: Text("There was an error with getting a delivery price: ${quote?['body']}"),
                                 actions: [
                                   TextButton(
                                     onPressed: () {

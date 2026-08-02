@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'route_observer.dart';
 import 'package:provider/provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:audioplayers/audioplayers.dart';
 //...packages
 
+import 'models/navigation_key.dart';
 import 'providers/advertisements.dart';
 import 'providers/order_data.dart';
 import 'providers/cart_data.dart';
@@ -46,6 +48,30 @@ Future<void> main() async {
   await Permission.manageExternalStorage.isDenied.then((value) {
     if (value) {
       Permission.manageExternalStorage.request();
+    }
+  });
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    final ctx = NavigationService.navigatorKey.currentState!.overlay!.context;
+    if (ctx.mounted) {
+      final player = AudioPlayer();
+      player.play(AssetSource('assets/positive-notification-sound.wav'));
+
+      showDialog(
+        context: ctx,
+        builder: (ctx) => AlertDialog(
+          title: Text(message.notification?.title ?? 'Notification'),
+          content: Text(message.notification?.body ?? 'You have a new message.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
     }
   });
 
@@ -123,6 +149,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       child: MaterialApp(
+        navigatorKey: NavigationService.navigatorKey,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch().copyWith(

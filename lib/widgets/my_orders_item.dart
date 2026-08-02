@@ -127,8 +127,7 @@ class _MyOrdersItemState extends State<MyOrdersItem> {
                             style: const TextStyle(fontSize: 15),
                           ),
                           Text(
-                            DateFormat('dd/MM/yyyy  hh:mm aa')
-                                .format(widget.order.dateTime),
+                            DateFormat('dd/MM/yyyy  hh:mm aa').format(widget.order.dateTime),
                             style: const TextStyle(
                               fontSize: 14,
                               color: Color(0xFF686868),
@@ -146,23 +145,25 @@ class _MyOrdersItemState extends State<MyOrdersItem> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'MYR ${widget.order.totalPrice.toStringAsFixed(2)}',
-                            style: const TextStyle(fontSize: 15),
-                          ),
-                          if (widget.order.resName != null)
+                      Flexible(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
                             Text(
-                              widget.order.resName!,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: Color(0xFF686868),
-                              ),
+                              'MYR ${widget.order.totalPrice.toStringAsFixed(2)}',
+                              style: const TextStyle(fontSize: 15),
                             ),
-                        ],
+                            if (widget.order.resName != null)
+                              Text(
+                                widget.order.resName!,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Color(0xFF686868),
+                                ),
+                              ),
+                          ],
+                        ),
                       ),
                       Material(
                         shape: const CircleBorder(),
@@ -173,9 +174,7 @@ class _MyOrdersItemState extends State<MyOrdersItem> {
                             height: 50,
                             width: 50,
                             child: Icon(
-                              _expanded
-                                  ? Icons.expand_less_rounded
-                                  : Icons.expand_more_rounded,
+                              _expanded ? Icons.expand_less_rounded : Icons.expand_more_rounded,
                               size: 25,
                             ),
                           ),
@@ -216,16 +215,14 @@ class _MyOrdersItemState extends State<MyOrdersItem> {
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              if (widget.order.specialRequests != null &&
-                                  widget.order.specialRequests != '')
+                              if (widget.order.specialRequests != null && widget.order.specialRequests != '')
                                 Text(
                                   widget.order.specialRequests!,
                                   style: const TextStyle(fontSize: 15),
                                 ),
                               const SizedBox(height: 5),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   const Text(
                                     'Order Price :',
@@ -234,8 +231,7 @@ class _MyOrdersItemState extends State<MyOrdersItem> {
                                     ),
                                   ),
                                   Text(
-                                    widget.order.totalProductSum
-                                        .toStringAsFixed(2),
+                                    widget.order.totalProductSum.toStringAsFixed(2),
                                     style: const TextStyle(
                                       fontSize: 14,
                                     ),
@@ -243,8 +239,7 @@ class _MyOrdersItemState extends State<MyOrdersItem> {
                                 ],
                               ),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   const Text(
                                     'Tax : (6%)',
@@ -261,8 +256,7 @@ class _MyOrdersItemState extends State<MyOrdersItem> {
                                 ],
                               ),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   const Text(
                                     'Delivery Fee :',
@@ -280,8 +274,7 @@ class _MyOrdersItemState extends State<MyOrdersItem> {
                               ),
                               if (widget.order.deliveryDistance != null)
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       'Distance :  ${widget.order.deliveryDistance}',
@@ -292,8 +285,7 @@ class _MyOrdersItemState extends State<MyOrdersItem> {
                                   ],
                                 ),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   const Text(
                                     'Total Price :',
@@ -334,8 +326,7 @@ class _MyOrdersItemState extends State<MyOrdersItem> {
                                             right: 5,
                                           ),
                                           child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 prod.cartTitle,
@@ -347,20 +338,14 @@ class _MyOrdersItemState extends State<MyOrdersItem> {
                                               if (prod.variationTitle != null)
                                                 ListView.builder(
                                                   shrinkWrap: true,
-                                                  physics:
-                                                      const NeverScrollableScrollPhysics(),
-                                                  itemCount: prod
-                                                      .variationTitle!.length,
-                                                  itemBuilder:
-                                                      (context, index) => Text(
+                                                  physics: const NeverScrollableScrollPhysics(),
+                                                  itemCount: prod.variationTitle!.length,
+                                                  itemBuilder: (context, index) => Text(
                                                     prod.variationTitle![index],
                                                   ),
                                                 ),
                                               const SizedBox(height: 5),
-                                              if (prod.cartSpecialRequests !=
-                                                      '' &&
-                                                  prod.cartSpecialRequests !=
-                                                      null)
+                                              if (prod.cartSpecialRequests != '' && prod.cartSpecialRequests != null)
                                                 Text(
                                                   prod.cartSpecialRequests!,
                                                   style: const TextStyle(
@@ -372,11 +357,11 @@ class _MyOrdersItemState extends State<MyOrdersItem> {
                                                 height: 5,
                                               ),
                                               Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                      'MYR ${prod.cartPrice.toStringAsFixed(2)} x ${prod.cartQuantity.toStringAsFixed(0)}'),
+                                                    'MYR ${prod.cartPrice.toStringAsFixed(2)} x ${prod.cartQuantity.toStringAsFixed(0)}',
+                                                  ),
                                                   const Spacer(),
                                                   Text(
                                                     'MYR ${(prod.cartPrice * prod.cartQuantity).toStringAsFixed(2)}',
@@ -429,9 +414,7 @@ class _MyOrdersItemState extends State<MyOrdersItem> {
                                       ),
                                     );
 
-                                    final myOrders = Provider.of<MyOrders>(
-                                        context,
-                                        listen: false);
+                                    final myOrders = Provider.of<MyOrders>(context, listen: false);
                                     await myOrders.removeOrder(
                                       widget.order.orderId,
                                       widget.order.userId,
@@ -460,8 +443,7 @@ class _MyOrdersItemState extends State<MyOrdersItem> {
                         backgroundColor: WidgetStateProperty.all<Color>(
                           Theme.of(context).colorScheme.primaryContainer,
                         ),
-                        shape:
-                            WidgetStateProperty.all<RoundedRectangleBorder>(
+                        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
                           ),
@@ -481,8 +463,7 @@ class _MyOrdersItemState extends State<MyOrdersItem> {
                       label: Text(
                         'Track Driver',
                         style: TextStyle(
-                          color:
-                              Theme.of(context).colorScheme.onPrimaryContainer,
+                          color: Theme.of(context).colorScheme.onPrimaryContainer,
                           fontSize: 13,
                         ),
                       ),

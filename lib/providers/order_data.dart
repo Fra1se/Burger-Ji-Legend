@@ -181,7 +181,7 @@ class Orders with ChangeNotifier {
               "address": customerAddress,
             },
           ],
-        }
+        },
       },
     );
 
@@ -198,7 +198,7 @@ class Orders with ChangeNotifier {
       'Market': 'MY',
     };
 
-    var url = Uri.parse('https://rest.lalamove.com$quotationsPath');
+    var url = Uri.parse('https://rest.sandbox.lalamove.com$quotationsPath');
 
     final response = await http.post(
       url,
@@ -207,16 +207,10 @@ class Orders with ChangeNotifier {
     );
 
     if (response.statusCode != 201) {
-      if (context.mounted) {
-        showDialog(
-          context: context,
-          builder: (ctx) => AlertDialog(
-            title: Text('Error ${response.statusCode}'),
-            content: Text(response.body),
-          ),
-        );
-      }
-      return null;
+      return {
+        'statusCode': response.statusCode.toString(),
+        'body': response.body,
+      };
     } else {
       final quote = json.decode(response.body) as Map<String, dynamic>;
       cart.setQuotations(
@@ -253,9 +247,11 @@ class Orders with ChangeNotifier {
     required double taxSum,
     required double totalPrice,
   }) async {
-    Uri url = Uri.parse(userId != null
-        ? 'https://valueat-app-default-rtdb.asia-southeast1.firebasedatabase.app/orders/$userId.json'
-        : 'https://valueat-app-default-rtdb.asia-southeast1.firebasedatabase.app/orders.json');
+    Uri url = Uri.parse(
+      userId != null
+          ? 'https://valueat-app-default-rtdb.asia-southeast1.firebasedatabase.app/orders/$userId.json'
+          : 'https://valueat-app-default-rtdb.asia-southeast1.firebasedatabase.app/orders.json',
+    );
 
     final timeStamp = DateTime.now();
 
@@ -290,17 +286,19 @@ class Orders with ChangeNotifier {
             'totalPrice': totalPrice,
             'itemCount': itemCount,
             'products': products
-                .map((value) => {
-                      'restaurantId': value.restaurantId,
-                      'productId': value.productId,
-                      'id': value.cartId,
-                      'title': value.cartTitle,
-                      'variationTitle': value.variationTitle,
-                      'price': value.cartPrice,
-                      'quantity': value.cartQuantity,
-                      'specialRequests': value.cartSpecialRequests,
-                    })
-                .toList()
+                .map(
+                  (value) => {
+                    'restaurantId': value.restaurantId,
+                    'productId': value.productId,
+                    'id': value.cartId,
+                    'title': value.cartTitle,
+                    'variationTitle': value.variationTitle,
+                    'price': value.cartPrice,
+                    'quantity': value.cartQuantity,
+                    'specialRequests': value.cartSpecialRequests,
+                  },
+                )
+                .toList(),
           },
         ),
       );
@@ -319,8 +317,7 @@ class Orders with ChangeNotifier {
       selectedFile = File(result!.files.single.path!);
       String filePath = 'receipts/${DateTime.now()}_';
 
-      final app = await Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform);
+      final app = await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
       FirebaseStorage storage = FirebaseStorage.instanceFor(
         bucket: DefaultFirebaseOptions.currentPlatform.storageBucket,
         app: app,
