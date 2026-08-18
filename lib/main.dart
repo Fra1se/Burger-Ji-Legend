@@ -55,8 +55,8 @@ Future<void> main() async {
     final ctx = NavigationService.navigatorKey.currentState!.overlay!.context;
     if (ctx.mounted) {
       final player = AudioPlayer();
-      player.play(AssetSource('assets/positive-notification-sound.wav'));
-
+      player.play(AssetSource('positive-notification-sound.wav'));
+      
       showDialog(
         context: ctx,
         builder: (ctx) => AlertDialog(

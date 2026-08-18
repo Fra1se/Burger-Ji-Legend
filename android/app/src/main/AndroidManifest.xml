@@ -1,4 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <queries>
+        <!-- Declare every package you want to check or launch -->
+        <package android:name="share.sandbox.lalamove.com" />
+        <package android:name="share.lalamove.com" />
+        <!-- Add more packages as needed -->
+    </queries>
+    
     <application
         android:label="Burger Ji Legend"
         android:name="${applicationName}"
