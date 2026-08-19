@@ -198,7 +198,7 @@ class Orders with ChangeNotifier {
       'Market': 'MY',
     };
 
-    var url = Uri.parse('https://rest.sandbox.lalamove.com$quotationsPath');
+    var url = Uri.parse('https://rest.lalamove.com$quotationsPath');
 
     final response = await http.post(
       url,
